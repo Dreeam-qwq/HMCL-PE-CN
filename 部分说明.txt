@@ -39,18 +39,19 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
 在线下载的Java17文件存放路径[非释放文件]：com.tungsten.hmclpe.launcher.setting的InitializeSetting的checkJava17方法的DownloadTaskListBean对象【删除】
 
 修改启动器设置内"启动器"页面模块部分内容：com.tungsten.hmclpe.launcher.setting的InitializeSetting文件
-    initializeLauncherSetting方法内的new SourceSetting关键字内
+    initializeLauncherSetting方法内的new SourceSetting关键字内：
         autoSelect参数：自动下载源
         autoSourceType参数：自动选择的版本列表源（0是官方源；1是BMCAPI源；2是MCBBS源）
         fixSourceType参数：手动选择的版本列表源（0是官方源；1是BMCAPI源；2是MCBBS源）
-    initializeLauncherSetting方法内的new LauncherSetting关键字内
+    initializeLauncherSetting方法内的new LauncherSetting关键字内：
         maxDownloadTask参数：下载并发数 —— "设置"页面的"下载"页面的"并发数"的滑动滚动条
         fullscreen参数：全屏显示(忽略刘海屏) —— "设置"页面的"外观"页面的忽略刘海屏选项
         autoCheckUpdate参数：自动更新检查 —— "设置"页面的"通用"页面的启动器更新组件
 
 在手机根目录释放HMCLPE目录：com.tungsten.hmclpe.launcher.setting的InitializeSetting文件
-    localInstallMinecraftResources方法内
+    localInstallMinecraftResources方法内：
         new DeleteResources().deleteDirectory关键字：在释放整合包资源前是否删除公有目录旧的游戏资源
+        AssetsUtils.getInstance方法内的AppManifest.DEFAULT_GAME_DIR变量：修改apk内部assets资源的"game_resources_directory"目录释放到手机哪个位置
 
 修改网络公告URL链接：com.tungsten.hmclpe.launcher.dialogs的FirstLaunchDialog文件
     run方法内的url变量
