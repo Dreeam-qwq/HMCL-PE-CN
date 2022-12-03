@@ -1,8 +1,5 @@
 <h1 align="center">HMCL-PE非官方版</h1>
 
-<div align="center">
-- 
-
 - 适合服务器客户端使用，内置了直装模块[assets/game_resources_directory]
 - 支持删除原整合包数据后在释放文件
 - 支持使用文本编写外置皮肤站地址[assets/authlib_injector_server.json]
