@@ -122,7 +122,6 @@ public class InstallLauncherFile {
 
     @SuppressLint("SetTextI18n")
     public static void localInstallMinecraftResources(SplashActivity activity, AssetsUtils.ProgressCallback callback){
-
         if(new File(AppManifest.DEFAULT_GAME_DIR).exists()){
             activity.runOnUiThread(() -> {
                 activity.loadingText.setText("正在删除旧公有目录游戏资源中,请稍等...");
