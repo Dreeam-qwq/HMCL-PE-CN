@@ -134,7 +134,8 @@ public class InstallLauncherFile {
             activity.loadingText.setText(activity.getString(R.string.local_installing_minecraft_resources));
         });
         //释放游戏资源
-        AssetsUtils.getInstance(activity).setProgressCallback(callback).copyOnMainThread(".minecraft",AppManifest.DEFAULT_GAME_DIR);
+        //AssetsUtils.getInstance(activity).setProgressCallback(callback).copyOnMainThread(".minecraft",AppManifest.DEFAULT_GAME_DIR);
+        AssetsUtils.getInstance(activity).setProgressCallback(callback).runCopyFilesFromAssets(".minecraft",AppManifest.DEFAULT_GAME_DIR);
         AssetsUtils.getInstance(activity.getApplicationContext()).copyAssetsToSD("authlib_injector_server.json", AppManifest.ACCOUNT_DIR + "/authlib_injector_server.json");
     }
 
