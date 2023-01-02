@@ -4,7 +4,9 @@ plugins {
 
 android {
     compileSdk 32
-
+    aaptOptions{
+        ignoreAssetsPattern '!.svn:!.git:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~'
+    }
     defaultConfig {
         applicationId "com.tungsten.hmclpe"
         minSdk 26
