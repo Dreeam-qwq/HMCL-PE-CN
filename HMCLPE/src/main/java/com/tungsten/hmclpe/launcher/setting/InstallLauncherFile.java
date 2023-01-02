@@ -139,31 +139,6 @@ public class InstallLauncherFile {
         AssetsUtils.getInstance(activity.getApplicationContext()).copyAssetsToSD("authlib_injector_server.json", AppManifest.ACCOUNT_DIR + "/authlib_injector_server.json");
     }
 
-    /**
-    public static void onlineInstallJava17(SplashActivity activity){
-        activity.runOnUiThread(() -> {
-            activity.loadingText.setText(activity.getString(R.string.loading_hint_java_17));
-        });
-        if (!new File(AppManifest.JAVA_DIR + "/JRE17").exists() || !new File(AppManifest.JAVA_DIR + "/JRE17/version").exists() || Integer.parseInt(Objects.requireNonNull(FileStringUtils.getStringFromFile(AppManifest.JAVA_DIR + "/JRE17/version"))) < AppInfo.JAVA_17_VERSION_CODE) {
-            //选择 Java 17 安装方式
-            activity.runOnUiThread(() -> {
-                activity.loadingProgress.setProgress(0);
-                activity.loadingProgressText.setText("0 %");
-                activity.loadingText.setText(activity.getString(R.string.loading_hint_java_17_select));
-                activity.selectText.setVisibility(View.VISIBLE);
-                activity.download.setVisibility(View.VISIBLE);
-                activity.local.setVisibility(View.VISIBLE);
-            });
-        }
-        else {
-            //检查完成，进入启动器
-            activity.runOnUiThread(() -> {
-                enterLauncher(activity);
-            });
-        }
-    }
-    **/
-
     public static void getJRE17Url(SplashActivity activity) {
         activity.runOnUiThread(() -> {
             activity.loadingText.setText(activity.getString(R.string.loading_hint_java_17_get));
