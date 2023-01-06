@@ -66,7 +66,7 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
     com.tungsten.hmclpe.launcher.list.info.contents的ContentListAdapter文件的getView方法内的ContentListBean关键字后面select选项
     com.tungsten.hmclpe.launcher.setting的InitializeSetting文件的initializeContents方法内的ContentListBean关键字后面select选项
 
-直装包制作：APK安装包的"/assets/game_resources_directory"目录下存放需要释放的游戏资源
+直装包制作：APK安装包的"/assets/.minecraft"目录下存放需要释放的游戏资源
 
 自定义启动器内默认皮肤站地址：APK安装包的"/assets/authlib_injector_server.json"文件内写自己的皮肤站数据
     注意：写法参照电脑上HMCL启动器文件格式编写，默认添加LittleSkin皮肤站
