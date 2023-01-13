@@ -338,9 +338,9 @@
     <string name="install_package_ui_package_name">整合包名稱</string>
     <string name="install_package_ui_version">版本</string>
     <string name="install_package_ui_author">作者</string>
-    <string name="install_package_ui_description">整合包描述</string>
+    <string name="install_package_ui_description">整合包敘述</string>
     <string name="install_package_ui_install">安裝</string>
-    <string name="dialog_package_description_title">整合包描述</string>
+    <string name="dialog_package_description_title">整合包敘述</string>
     <string name="dialog_package_description_positive">確定</string>
     <string name="dialog_package_manual_warn_title">安裝整合包</string>
     <string name="dialog_package_manual_warn_msg">您大概需要直接解壓該整合包，並使用其自帶的啟動器即可開始遊戲，而不需要導入整合包！該整合包不是由啟動器導出的整合包，而是人工打包 .minecraft 文件夾而來的，這類整合包通常附帶遊戲啟動器。 HMCL-PE 可以嘗試導入該整合包，但不保證可用性，是否繼續？</string>
