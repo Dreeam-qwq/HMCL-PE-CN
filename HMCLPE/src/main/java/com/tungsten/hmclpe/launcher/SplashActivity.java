@@ -190,15 +190,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 //用户不同意，向用户展示该权限作用
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    new AlertDialog.Builder(this)
-                            .setMessage(R.string.storage_permissions_remind)
-                            .setPositiveButton("OK", (dialog1, which) ->
-                                    ActivityCompat.requestPermissions(this,
-                                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                            1000))
-                            .setNegativeButton("Cancel", null)
-                            .create()
-                            .show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setCancelable(false);
+                    alert.setMessage(R.string.storage_permissions_remind);
+                    alert.setPositiveButton("授予权限", (dialog1, which) -> ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000));
+                    alert.setNegativeButton("关闭应用", (dialog2, which) -> System.exit(0));
+                    final AlertDialog dialog = alert.create();
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
                 }
             }
         }
@@ -211,13 +210,14 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             if (Environment.isExternalStorageManager()) {
                 init();
             } else {
-                new AlertDialog.Builder(this)
-                        .setMessage(R.string.storage_permissions_remind)
-                        .setPositiveButton("OK", (dialog1, which) ->
-                                requestPermission())
-                        .setNegativeButton("Cancel", null)
-                        .create()
-                        .show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setCancelable(false);
+                alert.setMessage(R.string.storage_permissions_remind);
+                alert.setPositiveButton("授予权限", (dialog1, which) -> requestPermission());
+                alert.setNegativeButton("关闭应用", (dialog2, which) -> System.exit(0));
+                final AlertDialog dialog = alert.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
             }
         }
         if (requestCode == 999) {
