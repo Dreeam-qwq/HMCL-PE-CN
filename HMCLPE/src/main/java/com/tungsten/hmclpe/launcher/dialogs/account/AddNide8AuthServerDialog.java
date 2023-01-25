@@ -40,7 +40,7 @@ public class AddNide8AuthServerDialog extends Dialog implements View.OnClickList
 
     private AuthlibInjectorServer authlibInjectorServer;
 
-    public static final String NIDE_8_AUTH_SERVER = "https://auth.mc-user.com:233/";
+    public static final String NIDE_8_AUTH_SERVER = "https://login.mc-user.com/";
 
     public AddNide8AuthServerDialog(@NonNull Context context,OnNide8AuthServerAddListener onNide8AuthServerAddListener) {
         super(context);
