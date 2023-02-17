@@ -155,7 +155,7 @@ public class TouchPad extends View {
         }
         int guiScale = -1;
         if (menuHelper.gameDir != null) {
-            MCOptionUtils.load(menuHelper.gameDir);
+            //MCOptionUtils.load(menuHelper.gameDir);
             String str = MCOptionUtils.get("guiScale");
             guiScale = (str == null ? 0 :Integer.parseInt(str));
             int scale = (int) Math.max(Math.min((screenWidth * menuHelper.scaleFactor) / 320, (screenHeight * menuHelper.scaleFactor) / 240), 1);
