@@ -1,3 +1,4 @@
+autoJump:true
 biomeBlendRadius:0
 screenEffectScale:0.0
 renderDistance:2
@@ -17,3 +18,5 @@ mipmapLevels:0
 graphicsMode:0
 showAutosaveIndicator:false
 skipMultiplayerWarning:true
+glintSpeed:0.0
+glintStrength:0.0
