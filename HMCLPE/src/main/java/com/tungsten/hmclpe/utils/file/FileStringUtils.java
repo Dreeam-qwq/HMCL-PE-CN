@@ -36,7 +36,7 @@ public class FileStringUtils {
         }
         catch (IOException e) {
             e.printStackTrace();
-            Log.e("写入文件",e.toString());
+            Log.e("writeFile",e.toString());
         }
     }
 

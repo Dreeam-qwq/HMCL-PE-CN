@@ -127,8 +127,8 @@ public class DownloadTask extends AsyncTask<ArrayList<DownloadTaskListBean>, Int
     @Override
     public void onPostExecute(ArrayList<DownloadTaskListBean> result) {
         for (DownloadTaskListBean bean : result) {
-            Log.e("链接", bean.url);
-            Log.e("路径", bean.path);
+            Log.e("url", bean.url);
+            Log.e("path", bean.path);
         }
         feedback.onFinished(result);
     }

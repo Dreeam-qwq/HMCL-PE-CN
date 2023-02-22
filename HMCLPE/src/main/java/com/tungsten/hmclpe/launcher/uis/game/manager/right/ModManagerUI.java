@@ -183,7 +183,7 @@ public class ModManagerUI extends BaseUI implements View.OnClickListener {
             try {
                 allModList.addAll(modManager.getMods());
             } catch (IOException e) {
-                Log.e("获取MOD列表异常",e.toString());
+                Log.e("getModsException",e.toString());
                 e.printStackTrace();
             }
             localModListAdapter = new LocalModListAdapter(context,activity,allModList,this);

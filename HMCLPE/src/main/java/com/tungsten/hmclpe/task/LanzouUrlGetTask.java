@@ -110,11 +110,11 @@ public class LanzouUrlGetTask extends AsyncTask<String, Integer, String> {
                 Call call=client.newCall(request);
                 Response response=call.execute();
                 String result=response.body().string();
-                Log.e("蓝奏链接任务",result);
+                Log.e("LanzouUrlGetTask",result);
                 writeLog(result);
                 JSONObject jsonObject=new JSONObject(result);
                 fianalUrl=jsonObject.getString("dom")+"/file/"+jsonObject.getString("url");
-                Log.e("蓝奏链接任务",""+fianalUrl);
+                Log.e("LanzouUrlGetTask",""+fianalUrl);
                 writeLog(fianalUrl);
                 request=new Request.Builder().url(fianalUrl)
                         .header("accept","application/json, text/javascript, */*")
@@ -122,14 +122,14 @@ public class LanzouUrlGetTask extends AsyncTask<String, Integer, String> {
                         .header("User-Agent",UA)
                         .get().build();
                 response=client.newCall(request).execute();
-                Log.e("蓝奏链接任务",""+response.headers().toString());
+                Log.e("LanzouUrlGetTask",""+response.headers().toString());
                 writeLog(response.headers().toString());
                 if (response.code()==302){
                     fianalUrl=response.headers().get("Location");
                 }else {
                     return null;
                 }
-                Log.e("蓝奏链接任务",""+fianalUrl);
+                Log.e("LanzouUrlGetTask",""+fianalUrl);
                 writeLog(fianalUrl);
                 return fianalUrl;
             }

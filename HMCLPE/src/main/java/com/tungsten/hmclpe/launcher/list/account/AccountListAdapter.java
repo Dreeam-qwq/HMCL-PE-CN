@@ -122,7 +122,7 @@ public class AccountListAdapter extends BaseAdapter {
                 YggdrasilService yggdrasilService = Objects.requireNonNull(getServerFromUrl(account.loginServer)).getYggdrasilService();
                 NormalizedSkin skin = new NormalizedSkin(bitmap);
                 String model = skin.isSlim() ? "slim" : "";
-                Log.e("上传模型",model);
+                Log.e("upload model",model);
                 yggdrasilService.uploadSkin(UUID.fromString(account.auth_uuid),account.auth_access_token,model,new File(path).toPath());
                 handler.post(() -> {
                     account.texture = Avatar.bitmapToString(bitmap);

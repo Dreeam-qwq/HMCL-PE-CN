@@ -801,7 +801,7 @@ public class VersionSettingUI extends BaseUI implements View.OnClickListener, Co
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (compoundButton == checkIsolateSetting) {
             String settingPath = activity.launcherSetting.gameFileDirectory + "/versions/" + versionName + "/hmclpe.cfg";
-            Log.e("私有目录设置路径",settingPath);
+            Log.e("privateSettingPath",settingPath);
             if (b) {
                 enableSettingLayout();
                 if (!new File(settingPath).exists() || GsonUtils.getPrivateGameSettingFromFile(settingPath) == null) {

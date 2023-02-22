@@ -41,7 +41,7 @@ public class AuthlibInjectorServerListAdapter extends BaseAdapter {
         int index1 = StringUtils.ordinalIndexOf(url,"/",2);
         int index2 = StringUtils.ordinalIndexOf(url,"/", 3);
         if (url.startsWith(AddNide8AuthServerDialog.NIDE_8_AUTH_SERVER)) {
-            return "auth.mc-user.com:233";
+            return "auth.mc-user.com";
         }
         return url.substring(index1 + 1,index2);
     }

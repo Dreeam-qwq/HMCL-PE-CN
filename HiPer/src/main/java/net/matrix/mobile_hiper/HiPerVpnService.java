@@ -76,12 +76,12 @@ public class HiPerVpnService extends VpnService {
         }
 
         if (site.getCert() == null) {
-            announceExit("站点缺少证书");
+            announceExit("Site is missing a certificate");
             //TODO: can we signal failure?
             return super.onStartCommand(intent, flags, startId);
         }
 
-        startForeground(this, "HiPer", "HiPer联机模块正在运行!", "HiPer", "HiPer联机模块正在运行!");
+        startForeground(this, "HiPer", "HiPer service is running!", "HiPer", "HiPer service is running!");
         startVpn();
 
         return super.onStartCommand(intent, flags, startId);

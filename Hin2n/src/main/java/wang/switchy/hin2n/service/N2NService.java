@@ -86,7 +86,7 @@ public class N2NService extends VpnService {
         }
 
         if (!mN2nSettingInfo.getDnsServer().isEmpty()) {
-            Log.d("N2NService", "使用DNS服务器: " + mN2nSettingInfo.getDnsServer());
+            Log.d("N2NService", "Using DNS server: " + mN2nSettingInfo.getDnsServer());
             builder.addDnsServer(mN2nSettingInfo.getDnsServer());
         }
 

@@ -93,7 +93,7 @@ public final class ModTranslations {
             mods = Arrays.stream(modData.split("\n")).filter(line -> !line.startsWith("#")).map(Mod::new).collect(Collectors.toList());
             return true;
         } catch (Exception e) {
-            LOG.log(Level.WARNING, "无法加载" + resourceName, e);
+            LOG.log(Level.WARNING, "Failed to load " + resourceName, e);
             return false;
         }
     }

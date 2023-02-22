@@ -324,13 +324,13 @@ public class JREUtils {
                 renderLibrary = "libOSMesa_8.so";
                 break;
             default:
-                Log.w("RENDER_LIBRARY", "未找到指定渲染器，将使用“Holy/GL4ES”渲染器");
+                Log.w("RENDER_LIBRARY", "No renderer selected, defaulting to opengles2");
                 renderLibrary = "libgl4es_114.so";
                 break;
         }
 
         if (!dlopen(renderLibrary) && !dlopen(findInLdLibPath(renderLibrary))) {
-            Log.e("RENDER_LIBRARY","选择的渲染器" + renderLibrary + "无法加载。将使用“Holy/GL4ES”渲染器");
+            Log.e("RENDER_LIBRARY","Failed to load renderer " + renderLibrary + ". Falling back to GL4ES 1.1.4");
             renderer = "opengles2";
             renderLibrary = "libgl4es_114.so";
             dlopen(nativeLibDir + "/libgl4es_114.so");
@@ -429,18 +429,20 @@ public class JREUtils {
                         }
                         return highestEsVersion;
                     } else {
-                        Log.e("glesDetect", "读取“EGL10#eglGetConfigs”配置文件时出错：" + egl.eglGetError());
+                        Log.e("glesDetect", "Getting configs with EGL10#eglGetConfigs failed: "
+                                + egl.eglGetError());
                         return -1;
                     }
                 } else {
-                    Log.e("glesDetect", "读取“EGL10#eglGetConfigs”配置文件时出错: " + egl.eglGetError());
+                    Log.e("glesDetect", "Getting number of configs with EGL10#eglGetConfigs failed: "
+                            + egl.eglGetError());
                     return -2;
                 }
             } finally {
                 egl.eglTerminate(display);
             }
         } else {
-            Log.e("glesDetect", "不能初始化EGL驱动。");
+            Log.e("glesDetect", "Couldn't initialize EGL.");
             return -3;
         }
     }
