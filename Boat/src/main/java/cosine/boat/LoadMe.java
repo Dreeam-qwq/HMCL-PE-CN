@@ -42,13 +42,11 @@ public class LoadMe {
         if (mReceiver == null || mReceiver.get() == null) {
             mReceiver = new WeakReference<>(new LogReceiver() {
                 final StringBuilder builder = new StringBuilder();
-
                 @Override
                 public void pushLog(String log) {
                     Log.e("HMCL-PE", log);
                     builder.append(log);
                 }
-
                 @Override
                 public String getLogs() {
                     return builder.toString();
@@ -61,29 +59,21 @@ public class LoadMe {
 
     public interface LogReceiver {
         void pushLog(String log);
-
         String getLogs();
     }
 
     public static int launchMinecraft(Handler handler, Context context, String javaPath, String home, boolean highVersion, Vector<String> args, String renderer, String gameDir, BoatLaunchCallback callback) {
-
         handler.post(callback::onStart);
-
         BOAT_LIB_DIR = context.getDir("runtime", 0).getAbsolutePath() + "/boat";
-
         boolean isJava17 = javaPath.endsWith("JRE17");
-
-//		patchLinker();
+		patchLinker();
         try {
-
             setenv("HOME", home);
             setenv("JAVA_HOME", javaPath);
             setenv("LIBGL_MIPMAP", "3");
             setenv("LIBGL_NORMALIZE", "1");
             setenv("LIBGL_VSYNC", "1");
             setenv("LIBGL_NOINTOVLHACK", "1");
-
-
             if (renderer.equals("VirGL")) {
                 setenv("LIBGL_NAME", "libGL.so.1");
                 setenv("LIBEGL_NAME", "libEGL.so.1");
@@ -100,7 +90,6 @@ public class LoadMe {
                     setenv("LIBGL_GL", "32");
                 }
             }
-
             // openjdk
             if (isJava17) {
                 dlopen(javaPath + "/lib/libpng16.so.16");
@@ -183,21 +172,15 @@ public class LoadMe {
     }
 
     public static int startVirGLService(Context context, String home, String tmpdir) {
-
         BOAT_LIB_DIR = context.getDir("runtime", 0).getAbsolutePath() + "/boat";
-
-//        patchLinker();
-
+        patchLinker();
         try {
             redirectStdio(home + "/boat_service_log.txt");
-
             setenv("HOME", home);
             setenv("TMPDIR", tmpdir);
             setenv("VIRGL_VTEST_SOCKET_NAME", context.getCacheDir().getAbsolutePath() + "/.virgl_test");
-
             dlopen(BOAT_LIB_DIR + "/renderer/virgl/libepoxy.so.0");
             dlopen(BOAT_LIB_DIR + "/renderer/virgl/libvirglrenderer.so");
-
             chdir(home);
             String[] finalArgs = new String[]{BOAT_LIB_DIR + "/renderer/virgl/libvirgl_test_server.so",
                     "--no-loop-or-fork",
@@ -213,13 +196,10 @@ public class LoadMe {
     }
 
     public static int launchJVM(String javaPath, ArrayList<String> args, String home) {
-
-//        patchLinker();
-
+        patchLinker();
         try {
             setenv("HOME", home);
             setenv("JAVA_HOME", javaPath);
-
             dlopen(javaPath + "/lib/aarch64/libfreetype.so");
             dlopen(javaPath + "/lib/aarch64/jli/libjli.so");
             dlopen(javaPath + "/lib/aarch64/server/libjvm.so");
@@ -230,10 +210,8 @@ public class LoadMe {
             dlopen(javaPath + "/lib/aarch64/libawt.so");
             dlopen(javaPath + "/lib/aarch64/libawt_headless.so");
             dlopen(javaPath + "/lib/aarch64/libfontmanager.so");
-
             redirectStdio(home + "/boat_api_installer_log.txt");
             chdir(home);
-
             String finalArgs[] = new String[args.size()];
             for (int i = 0; i < args.size(); i++) {
                 if (!args.get(i).equals(" ")) {
