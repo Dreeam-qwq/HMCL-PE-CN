@@ -28,6 +28,7 @@ android {
             path file('src/main/jni/Android.mk')
         }
     }
+    namespace 'net.kdt.pojavlaunch'
 }
 
 dependencies {
