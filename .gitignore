@@ -8,9 +8,8 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
 /captures
 .externalNativeBuild
 .cxx
-HMCLPE/release
-HMCLPE/release/HMCLPE-release.apk
+build/
+release/
