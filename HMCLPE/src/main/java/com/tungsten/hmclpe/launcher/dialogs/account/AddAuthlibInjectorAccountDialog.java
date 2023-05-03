@@ -2,57 +2,32 @@ package com.tungsten.hmclpe.launcher.dialogs.account;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.*;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
+import android.os.*;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
-
 import com.tungsten.hmclpe.R;
-import com.tungsten.hmclpe.auth.Account;
-import com.tungsten.hmclpe.auth.AuthInfo;
-import com.tungsten.hmclpe.auth.AuthenticationException;
+import com.tungsten.hmclpe.auth.*;
 import com.tungsten.hmclpe.auth.authlibinjector.AuthlibInjectorServer;
-import com.tungsten.hmclpe.auth.yggdrasil.GameProfile;
-import com.tungsten.hmclpe.auth.yggdrasil.Texture;
-import com.tungsten.hmclpe.auth.yggdrasil.TextureType;
-import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilService;
-import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilSession;
+import com.tungsten.hmclpe.auth.yggdrasil.*;
 import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.launcher.list.account.server.AuthlibInjectorServerSpinnerAdapter;
 import com.tungsten.hmclpe.manifest.AppManifest;
 import com.tungsten.hmclpe.skin.utils.Avatar;
 import com.tungsten.hmclpe.utils.gson.GsonUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-
     private MainActivity activity;
     private OnAuthlibInjectorAccountAddListener onAuthlibInjectorAccountAddListener;
     private ArrayList<AuthlibInjectorServer> list;
     private AuthlibInjectorServer authlibInjectorServer;
-
     private Spinner editServer;
     private TextView signUp;
     private ImageButton addServer;
@@ -61,13 +36,9 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
     private Button login;
     private Button cancel;
     private ProgressBar progressBar;
-
     private AuthlibInjectorServerSpinnerAdapter serverListAdapter;
-
     private String signUpUrl;
-
     private Account account;
-
     public static final String NIDE_8_AUTH_SIGN_UP_PAGE = "https://login.mc-user.com:233/";
 
     public AddAuthlibInjectorAccountDialog(@NonNull Context context, MainActivity activity,OnAuthlibInjectorAccountAddListener onAuthlibInjectorAccountAddListener,ArrayList<AuthlibInjectorServer> list,AuthlibInjectorServer authlibInjectorServer) {
@@ -148,12 +119,8 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                         inputStream = manager.open("img/alex.png");
                                         Bitmap skin = BitmapFactory.decodeStream(inputStream);
                                         bitmaps.add(skin);
-                                    }
-                                    else {
+                                    }else {
                                         String u = texture.getUrl();
-                                        if (!u.startsWith("https")){
-                                            u = u.replaceFirst("http","https");
-                                        }
                                         URL url = new URL(u);
                                         HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                                         httpURLConnection.setDoInput(true);
@@ -162,8 +129,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                         Bitmap skin = BitmapFactory.decodeStream(inputStream);
                                         bitmaps.add(skin);
                                     }
-                                }
-                                else {
+                                }else {
                                     AssetManager manager = getContext().getAssets();
                                     InputStream inputStream;
                                     inputStream = manager.open("img/alex.png");
@@ -189,12 +155,8 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                     InputStream inputStream;
                                     inputStream = manager.open("img/alex.png");
                                     skin = BitmapFactory.decodeStream(inputStream);
-                                }
-                                else {
+                                }else {
                                     String u = texture.getUrl();
-                                    if (!u.startsWith("https")){
-                                        u = u.replaceFirst("http","https");
-                                    }
                                     URL url = new URL(u);
                                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                                     httpURLConnection.setDoInput(true);
@@ -202,8 +164,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                     InputStream inputStream = httpURLConnection.getInputStream();
                                     skin = BitmapFactory.decodeStream(inputStream);
                                 }
-                            }
-                            else {
+                            }else {
                                 AssetManager manager = getContext().getAssets();
                                 InputStream inputStream;
                                 inputStream = manager.open("img/alex.png");

@@ -118,6 +118,7 @@
     <string name="dialog_add_authlib_injector_account_title">Add an external account</string>
     <string name="dialog_add_authlib_injector_account_server">Authentication server</string>
     <string name="dialog_add_authlib_injector_account_email">Username</string>
+    <string name="dialog_add_authlib_injector_account_email_tip">Only email</string>
     <string name="dialog_add_authlib_injector_account_password">Password</string>
     <string name="dialog_add_authlib_injector_account_sign_up">Register</string>
     <string name="dialog_add_authlib_injector_account_login">Login</string>
