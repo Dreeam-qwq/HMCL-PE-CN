@@ -125,9 +125,6 @@ public class AddMicrosoftAccountDialog extends Dialog implements View.OnClickLis
                             }
                             else {
                                 String u = texture.getUrl();
-                                if (!u.startsWith("https")){
-                                    u = u.replaceFirst("http","https");
-                                }
                                 URL url = new URL(u);
                                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                                 httpURLConnection.setDoInput(true);
