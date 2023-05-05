@@ -104,6 +104,7 @@
             android:layout_width="360dp"
             android:layout_height="36dp"
             android:layout_gravity="center"
+            android:hint="@string/dialog_add_authlib_injector_account_email_tip"
             android:id="@+id/edit_email" />
 
     </LinearLayout>

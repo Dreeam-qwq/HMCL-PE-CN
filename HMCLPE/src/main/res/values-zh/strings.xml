@@ -141,6 +141,7 @@
     <string name="dialog_add_authlib_injector_account_title">添加外置登录账户</string>
     <string name="dialog_add_authlib_injector_account_server">认证服务器</string>
     <string name="dialog_add_authlib_injector_account_email">用户名</string>
+    <string name="dialog_add_authlib_injector_account_email_tip">只能输入邮箱</string>
     <string name="dialog_add_authlib_injector_account_password">密码</string>
     <string name="dialog_add_authlib_injector_account_sign_up">注册</string>
     <string name="dialog_add_authlib_injector_account_login">登录</string>

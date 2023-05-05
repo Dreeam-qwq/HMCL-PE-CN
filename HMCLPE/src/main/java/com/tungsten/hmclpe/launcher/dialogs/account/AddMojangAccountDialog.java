@@ -109,9 +109,6 @@ public class AddMojangAccountDialog extends Dialog implements View.OnClickListen
                             Map<TextureType, Texture> map = YggdrasilService.getTextures(yggdrasilService.getCompleteGameProfile(authInfo.getUUID()).get()).get();
                             Texture texture = map.get(TextureType.SKIN);
                             String u = texture.getUrl();
-                            if (!u.startsWith("https")){
-                                u = u.replaceFirst("http","https");
-                            }
                             URL url = new URL(u);
                             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                             httpURLConnection.setDoInput(true);

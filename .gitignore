@@ -3,9 +3,8 @@
 /local.properties
 /.idea/
 .DS_Store
-/build
 /captures
 .externalNativeBuild
 .cxx
-HMCLPE/release
-HMCLPE/release/HMCLPE-release.apk
+build/
+release/
