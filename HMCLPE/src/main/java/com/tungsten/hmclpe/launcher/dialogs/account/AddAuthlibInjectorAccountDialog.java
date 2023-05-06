@@ -91,10 +91,9 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
             dialog.show();
         }
         if (v == login){
-            if (editEmail.getText().toString().equals("") || editPassword.getText().toString().equals("")){
+            if ("".equals(editEmail.getText().toString()) || "".equals(editPassword.getText().toString())){
                 Toast.makeText(getContext(), getContext().getString(R.string.dialog_add_authlib_injector_account_empty_warn), Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 String email = editEmail.getText().toString();
                 String password = editPassword.getText().toString();
                 boolean isNide = authlibInjectorServer.getUrl().startsWith(AddNide8AuthServerDialog.NIDE_8_AUTH_SERVER);
@@ -129,7 +128,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                         Bitmap skin = BitmapFactory.decodeStream(inputStream);
                                         bitmaps.add(skin);
                                     }
-                                }else {
+                                }else{
                                     AssetManager manager = getContext().getAssets();
                                     InputStream inputStream;
                                     inputStream = manager.open("img/alex.png");
@@ -142,8 +141,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                 dialog.show();
                                 dismiss();
                             });
-                        }
-                        else if (yggdrasilSession.getAvailableProfiles().size() == 1){
+                        }else if (yggdrasilSession.getAvailableProfiles().size() == 1){
                             AuthInfo authInfo = yggdrasilSession.toAuthInfo();
                             Texture texture;
                             Bitmap skin;
@@ -186,8 +184,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                                         skinTexture);
                             });
                             loginHandler.sendEmptyMessage(0);
-                        }
-                        else {
+                        }else {
                             loginHandler.sendEmptyMessage(2);
                         }
                     } catch (AuthenticationException | IOException e) {
@@ -217,8 +214,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
             }
             if (signUpUrl == null){
                 signUp.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 signUp.setVisibility(View.VISIBLE);
             }
         }
