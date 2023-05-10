@@ -35,7 +35,7 @@
     <string name="download_setting_ui_source_bmclapi" translatable="false">BMCLAPI（bangbang93，https://bmclapi2.bangbang93.com/）</string>
     <string name="hiper_ui_about_base" translatable="false">Based on HiPer</string>
     <string name="ui_about_hmclpe_main" translatable="false">Hello Minecraft! Launcher : Pocket Edition</string>
-    <string name="ui_about_hmclpe_sub" translatable="false">1.0.0</string>
+    <string name="ui_about_hmclpe_sub" translatable="false">2.0.8</string>
     <string name="ui_about_tungsten_main" translatable="false">Tungsten</string>
     <string name="ui_about_shirosakimio_main" translatable="false">ShirosakiMio</string>
     <string name="ui_about_cosine_main" translatable="false">CosineMath</string>

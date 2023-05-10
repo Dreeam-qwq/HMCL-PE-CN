@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -37,12 +38,14 @@ import com.tungsten.hmclpe.launcher.setting.InstallLauncherFile;
 import com.tungsten.hmclpe.launcher.setting.launcher.LauncherSetting;
 import com.tungsten.hmclpe.manifest.AppManifest;
 import com.tungsten.hmclpe.utils.LocaleUtils;
+import com.tungsten.hmclpe.utils.PropertiesFileParse;
 import com.tungsten.hmclpe.utils.file.UriUtils;
 import com.tungsten.hmclpe.utils.io.FileUtils;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Properties;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
@@ -58,20 +61,19 @@ public class SplashActivity extends AppCompatActivity {
 
     public LauncherSetting launcherSetting;
 
+    public static Properties properties;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         loadingProgress = findViewById(R.id.loading_progress_bar);
         loadingText = findViewById(R.id.loading_text);
         loadingProgressText = findViewById(R.id.loading_progress_text);
-
         titleTextFirst = findViewById(R.id.title_text_first);
         titleTextSecond = findViewById(R.id.title_text_second);
         titleTextThird = findViewById(R.id.title_text_third);
         background = findViewById(R.id.background);
-
         initTheme();
         requestPermission();
     }
@@ -152,6 +154,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void init() {
         new Thread(() -> {
+            properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
             AppManifest.initializeManifest(SplashActivity.this);
             launcherSetting = InitializeSetting.initializeLauncherSetting();
             runOnUiThread(() -> {

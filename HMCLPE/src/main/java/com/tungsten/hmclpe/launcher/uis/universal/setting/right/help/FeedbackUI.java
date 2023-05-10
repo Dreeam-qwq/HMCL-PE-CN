@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.launcher.MainActivity;
+import com.tungsten.hmclpe.launcher.SplashActivity;
 import com.tungsten.hmclpe.launcher.uis.tools.BaseUI;
 import com.tungsten.hmclpe.utils.animation.CustomAnimationUtils;
 
@@ -86,21 +87,20 @@ public class FeedbackUI extends BaseUI implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == joinDiscord) {
-            Uri uri = Uri.parse("https://icraft.ren:90/titles/Discord");
+            Uri uri = Uri.parse(SplashActivity.properties.getProperty("discord"));
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }
         if (v == joinQQChannel) {
-            Uri uri = Uri.parse("https://icraft.ren:90/titles/QQGroup");
+            Uri uri = Uri.parse(SplashActivity.properties.getProperty("qq-discord"));
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }
         if (v == joinQQ){
-            //7rX0cr37hu_jNPaGIlqAEf4Ndv1BG-WU
-            joinQQGroup(context, "ZrtZkHED9ad1edu-TKYvVYz6iGzAa-nS");
+            joinQQGroup(context, SplashActivity.properties.getProperty("qq-group-key"));
         }
         if (v == jumpToGit){
-            Uri uri = Uri.parse("https://github.com/root-S7/HMCL-PE_Server-CN/issues");
+            Uri uri = Uri.parse("https://github.com/root-S7/HMCL-PE-CN/issues");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }

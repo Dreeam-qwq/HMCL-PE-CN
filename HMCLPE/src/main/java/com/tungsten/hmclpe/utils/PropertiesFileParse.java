@@ -15,6 +15,15 @@ public class PropertiesFileParse {
             throw new RuntimeException(e);
         }
     }
+    public PropertiesFileParse(String propertiesFile) {
+        properties = new Properties();
+        try {
+            InputStream in = new BufferedInputStream(new FileInputStream(propertiesFile));
+            properties.load(in);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Properties getProperties() {
         return properties;
     }

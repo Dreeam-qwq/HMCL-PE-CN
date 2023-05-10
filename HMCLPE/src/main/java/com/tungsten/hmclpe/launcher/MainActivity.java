@@ -1,37 +1,24 @@
 package com.tungsten.hmclpe.launcher;
 
-import static com.tungsten.hmclpe.manifest.info.AppInfo.IS_PUBLIC_VERSION;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.os.*;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.launcher.dialogs.FirstLaunchDialog;
 import com.tungsten.hmclpe.launcher.dialogs.account.SkinPreviewDialog;
@@ -46,9 +33,6 @@ import com.tungsten.hmclpe.launcher.uis.universal.setting.right.launcher.Exterio
 import com.tungsten.hmclpe.update.UpdateChecker;
 import com.tungsten.hmclpe.utils.LocaleUtils;
 import com.tungsten.hmclpe.utils.animation.CustomAnimationUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -83,13 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
         launcherLayout = findViewById(R.id.launcher_layout);
-
         init();
-
         showEula();
     }
 
@@ -117,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loadingHandler.sendEmptyMessage(0);
         }).start();
     }
-
     @SuppressLint("HandlerLeak")
     public final Handler loadingHandler = new Handler(){
         @Override
@@ -156,14 +135,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
-
     public void onLoad() {
         uiManager.gameManagerUI.gameManagerUIManager.versionSettingUI.onLoaded();
         uiManager.downloadUI.downloadUIManager.downloadMinecraftUI.onLoaded();
         uiManager.settingUI.settingUIManager.universalGameSettingUI.onLoaded();
         uiManager.mainUI.customTheme();
     }
-
     public void showBarTitle(String title,boolean home,boolean close) {
         if (isLoaded){
             CustomAnimationUtils.hideViewToLeft(appBarTitle,this,this,true);
@@ -184,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentUIText.setText(title);
         }
     }
-
     public void hideBarTitle() {
         if (isLoaded){
             CustomAnimationUtils.showViewFromLeft(appBarTitle,this,this,true);
@@ -199,13 +175,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentUIText.setText("");
         }
     }
-
     public void backToLastUI() {
         if (isLoaded){
             if (uiManager.currentUI == uiManager.mainUI){
                 backToDeskTop();
-            }
-            else {
+            } else {
                 uiManager.uis.get(uiManager.uis.size() - 1).onStop();
                 uiManager.uis.remove(uiManager.uis.size() - 1);
                 uiManager.currentUI = uiManager.uis.get(uiManager.uis.size() - 1);
@@ -213,13 +187,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
     public void backToHome() {
         uiManager.switchMainUI(uiManager.mainUI);
         uiManager.uis.clear();
         uiManager.uis.add(uiManager.mainUI);
     }
-
     public void closeCurrentUI() {
         uiManager.removeUIIfExist(uiManager.exportWorldUI);
         uiManager.removeUIIfExist(uiManager.installPackageUI);
@@ -276,21 +248,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         uiManager.currentUI = uiManager.uis.get(uiManager.uis.size() - 1);
     }
-
     public void backToDeskTop() {
         Intent i = new Intent(Intent.ACTION_MAIN);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.addCategory(Intent.CATEGORY_HOME);
         startActivity(i);
     }
-
     @Override
     public void onBackPressed() {
         if (!dialogMode){
             backToLastUI();
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -304,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Tencent.handleResultData(data, iUiListener);
         }
     }
-
     @Override
     public void onClick(View v) {
         if (v == backToLastUI){
@@ -324,32 +292,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.exit(0);
         }
     }
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleUtils.setLanguage(base));
     }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         LocaleUtils.setLanguage(this);
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -360,7 +319,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             SkinPreviewDialog.getInstance().onPause();
         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -371,7 +329,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             SkinPreviewDialog.getInstance().onResume();
         }
     }
-
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -384,16 +341,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
-
     public void showEula() {
-        SharedPreferences sharedPreferences;
-        sharedPreferences = getSharedPreferences("global", MODE_PRIVATE);
-        if (sharedPreferences.getInt("first_launch", 0) == 0) {
+        if ("true".equals(SplashActivity.properties.getProperty("enable-announcement"))) {
             FirstLaunchDialog dialog = new FirstLaunchDialog(this);
             dialog.show();
         }

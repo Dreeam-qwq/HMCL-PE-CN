@@ -151,9 +151,8 @@ public class InstallLauncherFile {
                 activity.loadingText.setText("正在删除旧公有目录游戏资源中,请稍等...");
             });
             //释放资源文件之前先删除之前公有目录游戏资源
-            new DeleteResources().deleteDirectory(AppManifest.DEFAULT_GAME_DIR);
+            new DeleteResources().deleteDirectory(AppManifest.LAUNCHER_DIR);
         }
-
         activity.runOnUiThread(() -> {
             activity.loadingText.setText(activity.getString(R.string.local_installing_minecraft_resources));
         });
