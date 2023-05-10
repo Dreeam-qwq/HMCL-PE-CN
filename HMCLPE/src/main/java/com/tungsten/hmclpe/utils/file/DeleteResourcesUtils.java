@@ -1,8 +1,8 @@
-package com.tungsten.hmclpe.launcher.setting;
+package com.tungsten.hmclpe.utils.file;
 
 import java.io.*;
 
-public class DeleteResources {
+public class DeleteResourcesUtils {
     /**
      * 删除单个文件
      * @param   filePath    被删除文件的文件名

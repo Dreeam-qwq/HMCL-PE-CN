@@ -2,30 +2,18 @@ package com.tungsten.hmclpe.launcher.setting;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-
-import com.leo618.zip.IZipCallback;
-import com.leo618.zip.ZipManager;
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.launcher.SplashActivity;
-import com.tungsten.hmclpe.launcher.list.install.DownloadTaskListBean;
 import com.tungsten.hmclpe.manifest.AppManifest;
-import com.tungsten.hmclpe.manifest.info.AppInfo;
-import com.tungsten.hmclpe.task.DownloadTask;
-import com.tungsten.hmclpe.task.LanzouUrlGetTask;
 import com.tungsten.hmclpe.utils.file.AssetsUtils;
+import com.tungsten.hmclpe.utils.file.DeleteResourcesUtils;
 import com.tungsten.hmclpe.utils.file.FileStringUtils;
 import com.tungsten.hmclpe.utils.file.FileUtils;
-import com.tungsten.hmclpe.utils.io.DownloadUtil;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class InstallLauncherFile {
@@ -151,7 +139,7 @@ public class InstallLauncherFile {
                 activity.loadingText.setText("正在删除旧公有目录游戏资源中,请稍等...");
             });
             //释放资源文件之前先删除之前公有目录游戏资源
-            new DeleteResources().deleteDirectory(AppManifest.LAUNCHER_DIR);
+            new DeleteResourcesUtils().deleteDirectory(AppManifest.LAUNCHER_DIR);
         }
         activity.runOnUiThread(() -> {
             activity.loadingText.setText(activity.getString(R.string.local_installing_minecraft_resources));
