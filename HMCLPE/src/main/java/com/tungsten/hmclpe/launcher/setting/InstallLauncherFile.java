@@ -8,7 +8,6 @@ import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.launcher.SplashActivity;
 import com.tungsten.hmclpe.manifest.AppManifest;
 import com.tungsten.hmclpe.utils.file.AssetsUtils;
-import com.tungsten.hmclpe.utils.file.DeleteResourcesUtils;
 import com.tungsten.hmclpe.utils.file.FileStringUtils;
 import com.tungsten.hmclpe.utils.file.FileUtils;
 import java.io.BufferedWriter;
@@ -139,7 +138,7 @@ public class InstallLauncherFile {
                 activity.loadingText.setText("正在删除旧公有目录游戏资源中,请稍等...");
             });
             //释放资源文件之前先删除之前公有目录游戏资源
-            new DeleteResourcesUtils().deleteDirectory(AppManifest.LAUNCHER_DIR);
+            FileUtils.deleteDirectory(AppManifest.LAUNCHER_DIR);
         }
         activity.runOnUiThread(() -> {
             activity.loadingText.setText(activity.getString(R.string.local_installing_minecraft_resources));
