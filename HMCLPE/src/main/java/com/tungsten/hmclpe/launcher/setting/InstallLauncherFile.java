@@ -122,11 +122,11 @@ public class InstallLauncherFile {
         if (!new File(AppManifest.JAVA_DIR + "/JRE17").exists() || !new File(AppManifest.JAVA_DIR + "/JRE17/version").exists() || Integer.parseInt(Objects.requireNonNull(FileStringUtils.getStringFromFile(AppManifest.JAVA_DIR + "/JRE17/version"))) < Integer.parseInt(Objects.requireNonNull(AssetsUtils.readAssetsTxt(activity, "app_runtime/java/JRE17/version")))) {
             FileUtils.deleteDirectory(AppManifest.JAVA_DIR + "/JRE17");
             AssetsUtils.getInstance(activity).setProgressCallback(callback).copyOnMainThread("app_runtime/java/JRE17",AppManifest.JAVA_DIR + "/JRE17");
+            //删除原公有目录游戏资源
+            deleteMinecraftFiles(activity, callback);
+            //从apk安装包的assets目录内取出游戏资源并释放
+            installAdditionalFiles(activity, callback);
         }
-        //删除原公有目录游戏资源
-        deleteMinecraftFiles(activity, callback);
-        //从apk安装包的assets目录内取出游戏资源并释放
-        installAdditionalFiles(activity, callback);
     }
 
     @SuppressLint("SetTextI18n")
