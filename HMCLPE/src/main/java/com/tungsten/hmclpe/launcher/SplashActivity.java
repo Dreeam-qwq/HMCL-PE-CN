@@ -66,6 +66,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
         setContentView(R.layout.activity_splash);
         loadingProgress = findViewById(R.id.loading_progress_bar);
         loadingText = findViewById(R.id.loading_text);
@@ -154,7 +155,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void init() {
         new Thread(() -> {
-            properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
             AppManifest.initializeManifest(SplashActivity.this);
             launcherSetting = InitializeSetting.initializeLauncherSetting();
             runOnUiThread(() -> {

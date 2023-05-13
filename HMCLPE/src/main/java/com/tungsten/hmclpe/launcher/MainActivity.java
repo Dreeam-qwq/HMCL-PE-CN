@@ -32,6 +32,7 @@ import com.tungsten.hmclpe.launcher.uis.tools.UIManager;
 import com.tungsten.hmclpe.launcher.uis.universal.setting.right.launcher.ExteriorSettingUI;
 import com.tungsten.hmclpe.update.UpdateChecker;
 import com.tungsten.hmclpe.utils.LocaleUtils;
+import com.tungsten.hmclpe.utils.PropertiesFileParse;
 import com.tungsten.hmclpe.utils.animation.CustomAnimationUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SplashActivity.properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
         setContentView(R.layout.activity_main);
         launcherLayout = findViewById(R.id.launcher_layout);
         init();
