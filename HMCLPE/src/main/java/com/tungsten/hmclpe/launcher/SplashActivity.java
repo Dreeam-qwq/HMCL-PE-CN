@@ -53,20 +53,15 @@ public class SplashActivity extends AppCompatActivity {
     public ProgressBar loadingProgress;
     public TextView loadingText;
     public TextView loadingProgressText;
-
     public TextView titleTextFirst;
     public TextView titleTextSecond;
     public TextView titleTextThird;
     public ConstraintLayout background;
-
     public LauncherSetting launcherSetting;
-
-    public static Properties properties;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
+        HMCLPEApplication.properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
         setContentView(R.layout.activity_splash);
         loadingProgress = findViewById(R.id.loading_progress_bar);
         loadingText = findViewById(R.id.loading_text);

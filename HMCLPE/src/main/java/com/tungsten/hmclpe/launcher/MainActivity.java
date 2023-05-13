@@ -36,18 +36,13 @@ import com.tungsten.hmclpe.utils.PropertiesFileParse;
 import com.tungsten.hmclpe.utils.animation.CustomAnimationUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     public LinearLayout launcherLayout;
-
     public boolean isLoaded = false;
     public boolean dialogMode = false;
-
     public LauncherSetting launcherSetting;
     public PublicGameSetting publicGameSetting;
     public PrivateGameSetting privateGameSetting;
-
     public UpdateChecker updateChecker;
-
     public Toolbar appBar;
     public LinearLayout appBarTitle;
     public ImageButton backToLastUI;
@@ -56,19 +51,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ImageButton closeCurrentUI;
     public ImageButton backToDesktop;
     public ImageButton closeApp;
-
     public RelativeLayout uiContainer;
     public UIManager uiManager;
-
     public Config exteriorConfig;
-
     private Tencent mTencent;
     private IUiListener iUiListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SplashActivity.properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
+        HMCLPEApplication.properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
         setContentView(R.layout.activity_main);
         launcherLayout = findViewById(R.id.launcher_layout);
         init();
@@ -348,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
     }
     public void showEula() {
-        if ("true".equals(SplashActivity.properties.getProperty("enable-announcement"))) {
+        if ("true".equals(HMCLPEApplication.properties.getProperty("enable-announcement"))) {
             FirstLaunchDialog dialog = new FirstLaunchDialog(this);
             dialog.show();
         }

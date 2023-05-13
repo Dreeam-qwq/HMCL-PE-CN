@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import com.google.gson.Gson;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.launcher.SplashActivity;
 import com.tungsten.hmclpe.utils.io.NetworkUtils;
@@ -29,7 +30,7 @@ public class UpdateChecker {
     }
 
     public void check (boolean getBetaVersion,UpdateCallback callback) {
-        if (!isChecking && ("true".equals(SplashActivity.properties.getProperty("check-update")))) {
+        if (!isChecking && ("true".equals(HMCLPEApplication.properties.getProperty("check-update")))) {
             new Thread(() -> {
                 try {
                     if (callback != null) {

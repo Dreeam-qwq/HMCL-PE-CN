@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.tungsten.hmclpe.R;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.SplashActivity;
 
 import java.io.BufferedReader;
@@ -45,7 +46,7 @@ public class FirstLaunchDialog extends Dialog implements View.OnClickListener {
         handler = new Handler();
         new Thread(() -> {
             //在这里写耗时操作例如网络请求之类的
-            String url = SplashActivity.properties.getProperty("announcement-url");
+            String url = HMCLPEApplication.properties.getProperty("announcement-url");
             String inputLine = null;
             try {
                 URL oracle = new URL(url);

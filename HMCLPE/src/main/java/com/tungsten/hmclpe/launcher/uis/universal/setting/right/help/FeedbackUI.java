@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tungsten.hmclpe.R;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.launcher.SplashActivity;
 import com.tungsten.hmclpe.launcher.uis.tools.BaseUI;
@@ -87,17 +88,17 @@ public class FeedbackUI extends BaseUI implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == joinDiscord) {
-            Uri uri = Uri.parse(SplashActivity.properties.getProperty("discord"));
+            Uri uri = Uri.parse(HMCLPEApplication.properties.getProperty("discord"));
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }
         if (v == joinQQChannel) {
-            Uri uri = Uri.parse(SplashActivity.properties.getProperty("qq-discord"));
+            Uri uri = Uri.parse(HMCLPEApplication.properties.getProperty("qq-discord"));
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(intent);
         }
         if (v == joinQQ){
-            joinQQGroup(context, SplashActivity.properties.getProperty("qq-group-key"));
+            joinQQGroup(context, HMCLPEApplication.properties.getProperty("qq-group-key"));
         }
         if (v == jumpToGit){
             Uri uri = Uri.parse("https://github.com/root-S7/HMCL-PE-CN/issues");

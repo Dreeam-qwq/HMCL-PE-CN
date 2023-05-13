@@ -6,10 +6,11 @@ import java.util.*;
 
 public class PropertiesFileParse {
     private Properties properties;
+    private InputStream in;
     public PropertiesFileParse(String propertiesFileName, Context context) {
         properties = new Properties();
         try {
-            InputStream in = context.getAssets().open(propertiesFileName);
+            in = context.getAssets().open(propertiesFileName);
             properties.load(in);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -18,7 +19,7 @@ public class PropertiesFileParse {
     public PropertiesFileParse(String propertiesFile) {
         properties = new Properties();
         try {
-            InputStream in = new BufferedInputStream(new FileInputStream(propertiesFile));
+            in = new BufferedInputStream(new FileInputStream(propertiesFile));
             properties.load(in);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -26,5 +27,8 @@ public class PropertiesFileParse {
     }
     public Properties getProperties() {
         return properties;
+    }
+    public Map<String,String> propertiesToMap(){
+        return new HashMap<String, String>((Map) properties);
     }
 }

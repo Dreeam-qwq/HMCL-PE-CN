@@ -2,13 +2,11 @@ package com.tungsten.hmclpe.manifest;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
-
-import com.tungsten.hmclpe.launcher.SplashActivity;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.utils.file.FileUtils;
 
 public class AppManifest {
-    public static String LAUNCHER_DIR = Environment.getExternalStorageDirectory() + "/HMCLPE";
+    public static String LAUNCHER_DIR = Environment.getExternalStorageDirectory() + "/" + HMCLPEApplication.properties.getProperty("put-directory");
     public static String DEFAULT_GAME_DIR = LAUNCHER_DIR + "/.minecraft";
     public static String INNER_DIR;
     public static String INNER_FILE_DIR;
