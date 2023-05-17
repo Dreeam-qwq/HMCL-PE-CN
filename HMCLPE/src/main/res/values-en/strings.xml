@@ -39,6 +39,7 @@
     <string name="loading_hint_local">Local</string>
     <string name="loading_hint_java_17">Checking Java 17…</string>
     <string name="local_installing_minecraft_resources">Installing Minecraft Resources…</string>
+    <string name="local_deleting_minecraft_resources">Deleting Minecraft Resources…</string>
     <string name="loading_hint_java_17_select">Please choose…</string>
     <string name="loading_hint_java_17_check">Checking file…</string>
     <string name="loading_hint_java_17_error">Please select Official Java 17 file, if you don\'t have this file, download it on github.</string>

@@ -220,7 +220,7 @@ public class ForgeInstallTask extends AsyncTask<ForgeVersion,Integer, Version> {
                 args.add(".:" + AppManifest.PLUGIN_DIR + "/installer/forge-install-bootstrapper.jar:" + AppManifest.INSTALL_DIR + "/forge/forge-installer.jar");
                 args.add("com.bangbang93.ForgeInstaller");
                 args.add(activity.launcherSetting.gameFileDirectory);
-                args.add("-Xms1024M");
+                args.add("-Xms512M");
                 args.add("-Xmx1024M");
                 return patch.setId("forge").setVersion(forgeVersion.getVersion()).setPriority(30000);
             }

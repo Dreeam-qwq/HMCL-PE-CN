@@ -9,7 +9,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tungsten.hmclpe.R;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.MainActivity;
+import com.tungsten.hmclpe.launcher.SplashActivity;
 import com.tungsten.hmclpe.launcher.dialogs.ContributorListDialog;
 import com.tungsten.hmclpe.launcher.uis.tools.BaseUI;
 import com.tungsten.hmclpe.utils.animation.CustomAnimationUtils;
@@ -203,15 +205,14 @@ public class AboutUsUI extends BaseUI implements View.OnClickListener {
         }
 
         if (view == discord) {
-            uri = Uri.parse("https://icraft.ren:90/titles/Discord");
+            uri = Uri.parse(HMCLPEApplication.properties.getProperty("discord"));
         }
         if (view == qqChannel) {
-            uri = Uri.parse("https://icraft.ren:90/titles/QQGroup");
+            uri = Uri.parse(HMCLPEApplication.properties.getProperty("qq-discord"));
         }
         if (view == qq) {
-            FeedbackUI.joinQQGroup(context, "ZrtZkHED9ad1edu-TKYvVYz6iGzAa-nS");
+            FeedbackUI.joinQQGroup(context, HMCLPEApplication.properties.getProperty("qq-group-key"));
         }
-
         if (view == libHmcl) {
             uri = Uri.parse("https://github.com/huanghongxun/HMCL");
         }

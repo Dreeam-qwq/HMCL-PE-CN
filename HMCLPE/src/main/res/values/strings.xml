@@ -3,8 +3,8 @@
     <string name="app_full_name" translatable="false">Hello Minecraft! Launcher : Pocket Edition</string>
     <string name="app_name_pri" translatable="false">Hello Minecraft! Launcher</string>
     <string name="app_name_sec" translatable="false">Pocket Edition</string>
-    <string name="version_name" translatable="false">v2.0.7</string>
-    <string name="app_bar_title" translatable="false">Hello Minecraft! Launcher Pocket Edition v2.0.7非官方版</string>
+    <string name="version_name" translatable="false">v2.0.9</string>
+    <string name="app_bar_title" translatable="false">Hello Minecraft! Launcher Pocket Edition v2.0.9非官方版</string>
 
     <string name="launcher_spinner_text" translatable="false">▲</string>
     <string name="dialog_add_offline_account_uuid" translatable="false">UUID</string>
@@ -35,7 +35,7 @@
     <string name="download_setting_ui_source_bmclapi" translatable="false">BMCLAPI（bangbang93，https://bmclapi2.bangbang93.com/）</string>
     <string name="hiper_ui_about_base" translatable="false">Based on HiPer</string>
     <string name="ui_about_hmclpe_main" translatable="false">Hello Minecraft! Launcher : Pocket Edition</string>
-    <string name="ui_about_hmclpe_sub" translatable="false">1.0.0</string>
+    <string name="ui_about_hmclpe_sub" translatable="false">2.0.9</string>
     <string name="ui_about_tungsten_main" translatable="false">Tungsten</string>
     <string name="ui_about_shirosakimio_main" translatable="false">ShirosakiMio</string>
     <string name="ui_about_cosine_main" translatable="false">CosineMath</string>
@@ -133,6 +133,7 @@
     <string name="loading_hint_local">Local</string>
     <string name="loading_hint_java_17">Checking Java 17…</string>
     <string name="local_installing_minecraft_resources">Installing Minecraft Resources…</string>
+    <string name="local_deleting_minecraft_resources"> Deleting Minecraft Resources…</string>
     <string name="loading_hint_java_17_select">Please choose…</string>
     <string name="loading_hint_java_17_check">Checking file…</string>
     <string name="loading_hint_java_17_error">Please select Official Java 17 file, if you don\'t have this file, download it on github.</string>

@@ -36,6 +36,7 @@
     <string name="loading_hint_local">本地安裝</string>
     <string name="loading_hint_java_17">正在檢查 Java 17…</string>
     <string name="local_installing_minecraft_resources">導入遊戲資源中…</string>
+    <string name="local_deleting_minecraft_resources">削除遊戲資源中…</string>
     <string name="dialog_add_verify_server_name">服務器名稱</string>
     <string name="dialog_add_verify_server_nide_name">服務器名稱</string>
     <string name="loading_hint_java_17_select">請選擇…</string>

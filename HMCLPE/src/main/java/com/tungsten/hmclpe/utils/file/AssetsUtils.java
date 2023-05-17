@@ -112,9 +112,11 @@ public class AssetsUtils {
         long size = 0;
         if (fileNames.length > 0) {
             for (String fileName : fileNames) {
-                if (!srcPath.equals("")) { // assets 文件夹下的目录
+                //assets文件夹下的目录
+                if (!srcPath.equals("")) {
                     size += getTotalSize(context, srcPath + File.separator + fileName);
-                } else { // assets 文件夹
+                //assets 文件夹
+                } else {
                     size += getTotalSize(context, fileName);
                 }
             }
@@ -127,19 +129,24 @@ public class AssetsUtils {
 
     private void copyAssetsFilesToPhone(Context context, String assetsPath, String savePath){
         try {
-            String[] fileNames = context.getAssets().list(assetsPath);// 获取assets目录下的所有文件及目录名
-            if (fileNames.length > 0) {// 如果是目录
+            //获取assets目录下的所有文件及目录名
+            String[] fileNames = context.getAssets().list(assetsPath);
+            //如果是目录
+            if (fileNames.length > 0) {
                 File file = new File(savePath);
-                file.mkdirs();// 如果文件夹不存在，则递归
+                // 如果文件夹不存在，则递归
+                file.mkdirs();
                 for (String fileName : fileNames) {
                     copyAssetsFilesToPhone(context, assetsPath + "/" + fileName, savePath + "/" + fileName);
                 }
-            } else {// 如果是文件
+            //如果是文件
+            } else {
                 InputStream is = context.getAssets().open(assetsPath);
                 FileOutputStream fos = new FileOutputStream(new File(savePath));
                 byte[] buffer = new byte[1024];
                 int byteCount = 0;
-                while ((byteCount = is.read(buffer)) != -1) {// 循环从输入流读取
+                //循环从输入流读取
+                while ((byteCount = is.read(buffer)) != -1) {
                     currentPosition += byteCount;
                     fos.write(buffer, 0, byteCount);
                     if (progressCallback != null) {
@@ -153,12 +160,12 @@ public class AssetsUtils {
                         }
                     }
                 }
-                fos.flush();// 刷新缓冲区
+                //刷新缓冲区
+                fos.flush();
                 is.close();
                 fos.close();
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
