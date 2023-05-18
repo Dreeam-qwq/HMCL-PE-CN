@@ -2,6 +2,8 @@ package com.tungsten.hmclpe.launcher;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.tungsten.hmclpe.utils.PropertiesFileParse;
 import java.util.Properties;
 import wang.switchy.hin2n.Hin2n;
@@ -9,6 +11,7 @@ import wang.switchy.hin2n.Hin2n;
 public class HMCLPEApplication extends Application {
     private static Context context;
     public static Properties properties;
+    public static SharedPreferences appOtherConfig;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,6 +22,7 @@ public class HMCLPEApplication extends Application {
          * 解决那些频繁分配内存对象导致程序崩溃问题比如Handler...
         **/
         properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
+        appOtherConfig = getSharedPreferences("config", Context.MODE_PRIVATE);
         context = this.getApplicationContext();
         Hin2n.getInstance().setup(context);
     }

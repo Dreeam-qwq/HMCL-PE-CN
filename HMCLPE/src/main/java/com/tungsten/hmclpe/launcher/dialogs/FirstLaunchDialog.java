@@ -74,12 +74,6 @@ public class FirstLaunchDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == positive) {
-            SharedPreferences sharedPreferences;
-            SharedPreferences.Editor editor;
-            sharedPreferences = getContext().getSharedPreferences("global", MODE_PRIVATE);
-            editor = sharedPreferences.edit();
-            //editor.putInt("first_launch", 1);
-            editor.apply();
             dismiss();
         }
     }

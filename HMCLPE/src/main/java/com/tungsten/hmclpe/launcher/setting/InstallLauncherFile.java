@@ -2,6 +2,7 @@ package com.tungsten.hmclpe.launcher.setting;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.launcher.*;
@@ -78,18 +79,30 @@ public class InstallLauncherFile {
             AssetsUtils.getInstance(activity).setProgressCallback(progressCallback).copyOnMainThread("app_runtime/version",AppManifest.DEFAULT_RUNTIME_DIR + "/version");
         }
         /*
-         * 检查Java环境，如果版本太老或没有会从安装包的assets目录中释放一份
-         * 检查游戏资源情况，如果目录中有数据则先删除数据在释放assets目录中游戏资源
+         * 检查Java环境
         */
         checkJava8(activity, progressCallback);
         checkJava17(activity, progressCallback);
         /**
-         * 删除原游戏数据并释放新游戏整合包资源条件[以下所有条件中只要有一个满足都会执行操作]：
-         *     1.
-         *       (1) Java17运行环境不存在
-         *       (2) ”/data/data/com.tungsten.hmclpe/app_runtime/java/JRE17/version“文件不存在
-         *       (3) "/data/data/com.tungsten.hmclpe/app_runtime/java/JRE17/version"文件内设置的版本号 小于(<) 安装包内”assets/app_runtime/java/JRE17/version“版本号
+         * 删除原游戏数据并释放新游戏整合包资源过程：
+         *     1."/data/data/com.tungsten.hmclpe/shared_prefs/config.xml"目录下这个文件中installAdditionalFiles字段值非“完成”
+         *     2.如果条件“1”满足情况下在判断公有目录是否有“AppManifest.LAUNCHER_DIR”目录 —— 删除资源
+         *       2-1.如果有那么删除
+         *       2-2.如果没有则跳过删除公有目录资源动作
+         *     3.如果条件“1”满足情况下在判断公有目录是否有“AppManifest.DEFAULT_GAME_DIR”目录 —— 安装资源
+         *       3-1.如果没有那么释放APK安装包中"assets/.minecraft"资源到指定公有目录中
+         *       3-2.如果有那么跳过文件释放
         **/
+        SharedPreferences.Editor edit = HMCLPEApplication.appOtherConfig.edit();
+        if(!("完成".equals(HMCLPEApplication.appOtherConfig.getString("installAdditionalFiles","未找到字段")))){
+            edit.putString("installAdditionalFiles","正在执行中");
+            //删除原公有目录游戏资源
+            deleteMinecraftFiles(activity, progressCallback);
+            //从apk安装包的assets目录内取出游戏资源并释放
+            installAdditionalFiles(activity, progressCallback);
+            edit.putString("installAdditionalFiles","完成");
+            edit.apply();
+        }
         if (!new File(AppManifest.DEFAULT_RUNTIME_DIR + "/resolv.conf").exists()){
             try(BufferedWriter bfw = new BufferedWriter(new FileWriter(AppManifest.DEFAULT_RUNTIME_DIR + "/resolv.conf"))) {
                 bfw.write("nameserver 8.8.8.8");
@@ -122,10 +135,6 @@ public class InstallLauncherFile {
         if (!new File(AppManifest.JAVA_DIR + "/JRE17").exists() || !new File(AppManifest.JAVA_DIR + "/JRE17/version").exists() || Integer.parseInt(Objects.requireNonNull(FileStringUtils.getStringFromFile(AppManifest.JAVA_DIR + "/JRE17/version"))) < Integer.parseInt(Objects.requireNonNull(AssetsUtils.readAssetsTxt(activity, "app_runtime/java/JRE17/version")))) {
             FileUtils.deleteDirectory(AppManifest.JAVA_DIR + "/JRE17");
             AssetsUtils.getInstance(activity).setProgressCallback(callback).copyOnMainThread("app_runtime/java/JRE17",AppManifest.JAVA_DIR + "/JRE17");
-            //删除原公有目录游戏资源
-            deleteMinecraftFiles(activity, callback);
-            //从apk安装包的assets目录内取出游戏资源并释放
-            installAdditionalFiles(activity, callback);
         }
     }
 
