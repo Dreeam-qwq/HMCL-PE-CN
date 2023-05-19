@@ -1062,7 +1062,6 @@
                             android:background="@drawable/ic_baseline_keyboard_arrow_down_black" />
 
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/pojav_render_selector_isolate"
                         android:paddingBottom="12dp"
@@ -1071,7 +1070,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
                         <RadioButton
                             android:singleLine="true"
                             android:layout_marginTop="3dp"
@@ -1082,7 +1080,6 @@
                             android:textSize="@dimen/text_size_middle"
                             android:textColor="@color/colorPureBlack"
                             android:id="@+id/pojav_renderer_gl4es_114_isolate"/>
-
                         <RadioButton
                             android:singleLine="true"
                             android:layout_marginStart="12dp"
@@ -1092,9 +1089,25 @@
                             android:textSize="@dimen/text_size_middle"
                             android:textColor="@color/colorPureBlack"
                             android:id="@+id/pojav_renderer_virgl_isolate"/>
-
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <RadioButton
+                                android:singleLine="true"
+                                android:layout_marginStart="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/game_setting_ui_pojav_renderer_vgpu"
+                                android:textSize="@dimen/text_size_middle"
+                                android:textColor="@color/colorPureBlack"
+                                android:id="@+id/pojav_renderer_vgpu_isolate"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/game_setting_ui_pojav_renderer_vgpu_notes"
+                                android:textColor="@color/colorPureBlack"/>
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <TextView

@@ -198,7 +198,7 @@ public class JREUtils {
         envMap.put("REGAL_GL_RENDERER", "Regal");
         envMap.put("REGAL_GL_VERSION", "4.5");
         if(renderer != null) {
-            if (renderer.equals("opengles2_5") || renderer.equals("opengles3") || renderer.equals("opengles3_vgpu")) {
+            if (renderer.equals("opengles2_5") || renderer.equals("opengles3")) {
                 renderer = "opengles2";
             }
             envMap.put("POJAV_RENDERER", renderer);
@@ -288,9 +288,11 @@ public class JREUtils {
         switch (renderer){
             case "opengles2":
             case "opengles2_5":
-            case "opengles3_vgpu" :
             case "opengles3":
                 renderLibrary = "libgl4es_114.so";
+                break;
+            case "opengles3_vgpu" :
+                renderLibrary = "libvgpu.so";
                 break;
             case "opengles3_virgl":
             case "vulkan_zink":
@@ -315,9 +317,11 @@ public class JREUtils {
         switch (renderer){
             case "opengles2":
             case "opengles2_5":
-            case "opengles3_vgpu" :
             case "opengles3":
                 renderLibrary = "libgl4es_114.so";
+                break;
+            case "opengles3_vgpu" :
+                renderLibrary = "libvgpu.so";
                 break;
             case "opengles3_virgl":
             case "vulkan_zink":
