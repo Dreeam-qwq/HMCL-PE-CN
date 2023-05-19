@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.Editable;
@@ -201,6 +202,7 @@ public class VersionSettingUI extends BaseUI implements View.OnClickListener, Co
 
         boatRendererGL4ES114 = activity.findViewById(R.id.boat_renderer_gl4es_114_isolate);
         boatRendererVirGL = activity.findViewById(R.id.boat_renderer_virgl_isolate);
+        boatRendererVirGL.setPaintFlags(boatRendererVirGL.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         pojavRendererGL4ES114 = activity.findViewById(R.id.pojav_renderer_gl4es_114_isolate);
         pojavRendererVirGL = activity.findViewById(R.id.pojav_renderer_virgl_isolate);
@@ -503,6 +505,8 @@ public class VersionSettingUI extends BaseUI implements View.OnClickListener, Co
             view.setEnabled(true);
         }
         switchToGlobalSetting.setEnabled(false);
+        //弃用Boat后端的VirGLRenderer渲染器
+        boatRendererVirGL.setEnabled(false);
         Log.e("enable","true");
     }
 

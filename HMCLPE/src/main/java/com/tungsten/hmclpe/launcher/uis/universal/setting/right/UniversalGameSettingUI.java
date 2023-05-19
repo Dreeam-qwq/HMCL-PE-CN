@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -179,6 +180,7 @@ public class UniversalGameSettingUI extends BaseUI implements View.OnClickListen
 
         boatRendererGL4ES114 = activity.findViewById(R.id.boat_renderer_gl4es_114);
         boatRendererVirGL = activity.findViewById(R.id.boat_renderer_virgl);
+        boatRendererVirGL.setPaintFlags(boatRendererVirGL.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         pojavRendererGL4ES114 = activity.findViewById(R.id.pojav_renderer_gl4es_114);
         pojavRendererVirGL = activity.findViewById(R.id.pojav_renderer_virgl);
