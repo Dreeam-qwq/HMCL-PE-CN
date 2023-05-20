@@ -241,7 +241,7 @@ public class LaunchVersion {
                         value = "HMCL-PE";
                     }
                     else if (key.equals("launcher_version")) {
-                        value = "2.0.9";
+                        value = "2.1.0";
                     }
                     else if (key.equals("version_type")) {
                         value = type;
@@ -346,7 +346,7 @@ public class LaunchVersion {
                         value = "HMCL-PE";
                     }
                     else if (key.equals("launcher_version")) {
-                        value = "2.0.9";
+                        value = "2.1.0";
                     }
                     else if (key.equals("version_type")) {
                         value = type;
