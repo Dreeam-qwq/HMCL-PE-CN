@@ -224,11 +224,13 @@ public class LaunchCheckDialog extends Dialog implements View.OnClickListener, H
                     FileUtils.deleteDirectory("/data/user_de/0/com.tungsten.hmclpe/code_cache/");
                     if (privateGameSetting.boatLauncherSetting.enable){
                         intent = new Intent(getContext(), BoatMinecraftActivity.class);
+                        /**
                         if (privateGameSetting.boatLauncherSetting.renderer.equals("VirGL")) {
                             Intent virGLService = new Intent(getContext(), VirGLService.class);
                             getContext().stopService(virGLService);
                             getContext().startService(virGLService);
                         }
+                        **/
                     }
                     else {
                         intent = new Intent(getContext(), PojavMinecraftActivity.class);

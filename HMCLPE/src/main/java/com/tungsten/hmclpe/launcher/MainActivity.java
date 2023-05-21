@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         HMCLPEApplication.properties = new PropertiesFileParse("config.properties", getApplicationContext()).getProperties();
+        HMCLPEApplication.appOtherConfig = getSharedPreferences("config", Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         launcherLayout = findViewById(R.id.launcher_layout);
         init();

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="components_deprecated">\u3000这个功能已弃用</string>
+    <string name="game_setting_ui_pojav_renderer_vgpu_notes">\u3000仅支持1.6 – 1.12.2版本</string>
     <string name="dialog_unknown_error_title">警告</string>
     <string name="dialog_unknown_error_msg">启动器遇到无法处理的错误，请联系开发者解决。</string>
     <string name="dialog_unknown_error_positive">确定</string>
