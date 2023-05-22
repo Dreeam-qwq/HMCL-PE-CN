@@ -1,9 +1,7 @@
 package com.tungsten.hmclpe.launcher;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-
+import android.content.*;
 import com.tungsten.hmclpe.utils.PropertiesFileParse;
 import java.util.Properties;
 import wang.switchy.hin2n.Hin2n;
@@ -12,6 +10,8 @@ public class HMCLPEApplication extends Application {
     private static Context context;
     public static Properties properties;
     public static SharedPreferences appOtherConfig;
+    public static int thisDirectionValue = -1;
+    public static int thisDirectionValueTip = -1;
     @Override
     public void onCreate() {
         super.onCreate();

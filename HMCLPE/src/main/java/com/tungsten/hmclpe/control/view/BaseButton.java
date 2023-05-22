@@ -3,13 +3,9 @@ package com.tungsten.hmclpe.control.view;
 import static com.tungsten.hmclpe.control.bean.BaseButtonInfo.POSITION_TYPE_PERCENT;
 import static com.tungsten.hmclpe.control.bean.BaseButtonInfo.SIZE_OBJECT_WIDTH;
 import static com.tungsten.hmclpe.control.bean.BaseButtonInfo.SIZE_TYPE_PERCENT;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
+import android.graphics.*;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -17,22 +13,19 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
-
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.control.InputBridge;
 import com.tungsten.hmclpe.control.MenuHelper;
 import com.tungsten.hmclpe.control.bean.BaseButtonInfo;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.dialogs.control.EditButtonDialog;
 import com.tungsten.hmclpe.launcher.dialogs.control.InputDialog;
 import com.tungsten.hmclpe.launcher.list.local.controller.ChildLayout;
 import com.tungsten.hmclpe.launcher.setting.SettingUtils;
 import com.tungsten.hmclpe.utils.convert.ConvertUtils;
-
 import net.kdt.pojavlaunch.keyboard.LwjglGlfwKeycode;
-
 import java.util.ArrayList;
 
 @SuppressLint("ViewConstructor")
@@ -308,7 +301,9 @@ public class BaseButton extends androidx.appcompat.widget.AppCompatButton {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         if (info.viewMove && menuHelper.gameCursorMode == 1) {
-                            menuHelper.viewManager.setGamePointer(info.uuid,true,event.getRawX() - initialX,event.getRawY() - initialY);
+                            if(HMCLPEApplication.thisDirectionValue == 3){
+                                menuHelper.viewManager.setGamePointer(info.uuid,true,event.getRawX() - initialX,event.getRawY() - initialY);
+                            }
                         }
                         if (info.movable) {
                             float targetX;
@@ -338,7 +333,9 @@ public class BaseButton extends androidx.appcompat.widget.AppCompatButton {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         if (info.viewMove && menuHelper.gameCursorMode == 1) {
-                            menuHelper.viewManager.setGamePointer(info.uuid,false,event.getRawX() - initialX,event.getRawY() - initialY);
+                            if(HMCLPEApplication.thisDirectionValue == 3){
+                                menuHelper.viewManager.setGamePointer(info.uuid,false,event.getRawX() - initialX,event.getRawY() - initialY);
+                            }
                         }
                         if (!info.autoKeep && !info.autoClick) {
                             for (int code : info.outputKeycode) {
@@ -384,7 +381,9 @@ public class BaseButton extends androidx.appcompat.widget.AppCompatButton {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         if (info.viewMove && menuHelper.gameCursorMode == 1) {
-                            menuHelper.viewManager.setGamePointer(info.uuid,true,event.getRawX() - initialX,event.getRawY() - initialY);
+                            if(HMCLPEApplication.thisDirectionValue == 3){
+                                menuHelper.viewManager.setGamePointer(info.uuid,true,event.getRawX() - initialX,event.getRawY() - initialY);
+                            }
                         }
                         if (info.movable) {
                             float targetX;
@@ -414,7 +413,9 @@ public class BaseButton extends androidx.appcompat.widget.AppCompatButton {
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         if (info.viewMove && menuHelper.gameCursorMode == 1) {
-                            menuHelper.viewManager.setGamePointer(info.uuid,false,event.getRawX() - initialX,event.getRawY() - initialY);
+                            if(HMCLPEApplication.thisDirectionValue == 3){
+                                menuHelper.viewManager.setGamePointer(info.uuid,false,event.getRawX() - initialX,event.getRawY() - initialY);
+                            }
                         }
                         if (!info.autoKeep) {
                             setNormalDrawable();
