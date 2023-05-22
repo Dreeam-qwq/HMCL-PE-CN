@@ -80,7 +80,9 @@ public class PojavMinecraftActivity extends BaseMainActivity {
                 }
                 if(HMCLPEApplication.thisDirectionValue != 3 && HMCLPEApplication.thisDirectionValueTip == -1){
                     HMCLPEApplication.thisDirectionValueTip = 0;
-                    ToastUtils.toast("当前手机方向无法使用视角跟随功能,请切换手机旋转到另外一个方向", PojavMinecraftActivity.this);
+                    ToastUtils.toast("当前手机方向无法使用视角跟随功能,请将手机旋转到另外一个方向", PojavMinecraftActivity.this);
+                }else if(HMCLPEApplication.thisDirectionValue == 3){
+                    HMCLPEApplication.thisDirectionValueTip = -1;
                 }
             }
         };

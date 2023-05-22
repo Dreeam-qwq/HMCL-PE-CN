@@ -79,7 +79,9 @@ public class BoatMinecraftActivity extends BoatActivity {
                 }
                 if(HMCLPEApplication.thisDirectionValue != 3 && HMCLPEApplication.thisDirectionValueTip == -1){
                     HMCLPEApplication.thisDirectionValueTip = 0;
-                    ToastUtils.toast("当前手机方向无法使用视角跟随功能,请切换手机旋转到另外一个方向", BoatMinecraftActivity.this);
+                    ToastUtils.toast("当前手机方向无法使用视角跟随功能,请将手机旋转到另外一个方向", BoatMinecraftActivity.this);
+                }else if(HMCLPEApplication.thisDirectionValue == 3){
+                    HMCLPEApplication.thisDirectionValueTip = -1;
                 }
             }
         };
