@@ -2,40 +2,32 @@ package com.tungsten.hmclpe.launcher.launch.pojav;
 
 import static org.lwjgl.glfw.CallbackBridge.windowHeight;
 import static org.lwjgl.glfw.CallbackBridge.windowWidth;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.SurfaceTexture;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.InputDevice;
-import android.view.KeyEvent;
-import android.view.Surface;
-import android.view.WindowManager;
-
+import android.hardware.SensorManager;
+import android.os.*;
+import android.util.Log;
+import android.view.*;
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.control.InputBridge;
 import com.tungsten.hmclpe.control.MenuHelper;
 import com.tungsten.hmclpe.control.view.LayoutPanel;
+import com.tungsten.hmclpe.launcher.HMCLPEApplication;
 import com.tungsten.hmclpe.launcher.launch.boat.BoatMinecraftActivity;
 import com.tungsten.hmclpe.launcher.setting.game.GameLaunchSetting;
-
 import net.kdt.pojavlaunch.BaseMainActivity;
 import net.kdt.pojavlaunch.keyboard.LwjglGlfwKeycode;
 import net.kdt.pojavlaunch.function.PojavCallback;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import com.tungsten.hmclpe.launcher.launch.MCOptionUtils;
-import com.tungsten.hmclpe.utils.LocaleUtils;
+import com.tungsten.hmclpe.utils.*;
 
 import org.lwjgl.glfw.CallbackBridge;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Vector;
 
 public class PojavMinecraftActivity extends BaseMainActivity {
@@ -52,11 +44,7 @@ public class PojavMinecraftActivity extends BaseMainActivity {
         super.onCreate(savedInstanceState);
 
         gameLaunchSetting = GameLaunchSetting.getGameLaunchSetting(getIntent().getExtras().getString("setting_path"),getIntent().getExtras().getString("version"));
-
-        if (getIntent().getExtras().getBoolean("test") || gameLaunchSetting.log) {
-
-        }
-
+        //if (getIntent().getExtras().getBoolean("test") || gameLaunchSetting.log) {}
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             if (gameLaunchSetting.fullscreen) {
                 getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
@@ -80,6 +68,31 @@ public class PojavMinecraftActivity extends BaseMainActivity {
         handleCallback();
 
         init(gameLaunchSetting.game_directory, GameLaunchSetting.isHighVersion(gameLaunchSetting));
+
+        HMCLPEApplication.thisDirectionValue = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+        OrientationEventListener mOrientationListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                if(orientation == OrientationEventListener.ORIENTATION_UNKNOWN){
+                    return;  //手机平放时，检测不到有效的角度
+                }else if((orientation > 80 && orientation < 100) || (orientation > 260 && orientation < 280)){ //横屏条件都允许
+                    HMCLPEApplication.thisDirectionValue = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+                }
+                if(HMCLPEApplication.thisDirectionValue != 3 && HMCLPEApplication.thisDirectionValueTip == -1){
+                    HMCLPEApplication.thisDirectionValueTip = 0;
+                    ToastUtils.toast("当前手机方向无法使用视角跟随功能,请将手机旋转到另外一个方向", PojavMinecraftActivity.this);
+                }else if(HMCLPEApplication.thisDirectionValue == 3){
+                    HMCLPEApplication.thisDirectionValueTip = -1;
+                }
+            }
+        };
+        if (mOrientationListener.canDetectOrientation()) {
+            Log.v("按键事件", "方向检测已开启");
+            mOrientationListener.enable();
+        } else {
+            Log.v("按键事件", "无法检测方向");
+            mOrientationListener.disable();
+        }
 
         menuHelper = new MenuHelper(this,this,gameLaunchSetting.fullscreen,gameLaunchSetting.game_directory,drawerLayout,baseLayout,false,gameLaunchSetting.controlLayout,2,scaleFactor);
     }
