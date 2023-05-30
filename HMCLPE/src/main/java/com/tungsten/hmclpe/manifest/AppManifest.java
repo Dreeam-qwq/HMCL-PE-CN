@@ -40,6 +40,9 @@ public class AppManifest {
         //通过getExternalFilesDir方法获取目录路径若不存在会自动创建一个这个目录
         DEBUG_DIR = context.getExternalFilesDir("debug").getAbsolutePath();
         INNER_GAME_DIR = context.getExternalFilesDir(null).getAbsolutePath() + "/.minecraft";
+        if("true".equals(HMCLPEApplication.properties.getProperty("enable-private-directory-mode"))){
+            DEFAULT_GAME_DIR = INNER_GAME_DIR;
+        }
         DEFAULT_CACHE_DIR = context.getCacheDir().getAbsolutePath();
         INSTALL_DIR = DEFAULT_CACHE_DIR + "/install";
         SAVES_CACHE_DIR = DEFAULT_CACHE_DIR + "/saves";
