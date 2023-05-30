@@ -48,23 +48,15 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
         fullscreen参数：全屏显示(忽略刘海屏) —— "设置"页面的"外观"页面的忽略刘海屏选项
         autoCheckUpdate参数：自动更新检查 —— "设置"页面的"通用"页面的启动器更新组件
 
-在手机根目录释放HMCLPE目录：com.tungsten.hmclpe.launcher.setting的InitializeSetting文件
-    localInstallMinecraftResources方法内
-        new DeleteResources().deleteDirectory关键字：在释放整合包资源前是否删除公有目录旧的游戏资源
-        AssetsUtils.getInstance方法内的AppManifest.DEFAULT_GAME_DIR变量：修改apk内部assets资源的"game_resources_directory"目录释放到手机哪个位置
+安装包内置的".minecraft"目录释放到手机哪个目录：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
 
-修改网络公告URL链接：com.tungsten.hmclpe.launcher.dialogs的FirstLaunchDialog文件
-    run方法内的url变量
+修改网络公告URL链接：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
 
 修改压缩文件时使用的密码[修改此选项后解压密码也要改]：com.tungsten.hmclpe.launcher.list.local.controller的ControlPatternListAdapter文件
     getView方法内的ZipManager.zip关键字内的password参数[默认压缩密码：HMCL-PE-Password
 
 修改解压文件时输入的密码[修改此选项后压缩密码也要改]：com.tungsten.hmclpe.launcher.dialogs.control的ControllerManagerDialog文件
     onResult方法内的ZipManager.unzip关键字内的password参数[默认解压密码：HMCL-PE-Password
-
-在线下载默认存放私有目录还是公有目录：[两个都要一起改，且选项内容一致]
-    com.tungsten.hmclpe.launcher.list.info.contents的ContentListAdapter文件的getView方法内的ContentListBean关键字后面select选项
-    com.tungsten.hmclpe.launcher.setting的InitializeSetting文件的initializeContents方法内的ContentListBean关键字后面select选项
 
 直装包制作：APK安装包的"/assets/.minecraft"目录下存放需要释放的游戏资源
 
@@ -73,3 +65,5 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
 
 自定义按键：APK安装包的"assets/control/Default"目录下存放按键文件
     注意：请在启动器内修改完之后导出按键文件并解压后按APK安装包目录格式替换文件!!!
+
+修改游戏资源默认存放到私有目录还是公有目录：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
