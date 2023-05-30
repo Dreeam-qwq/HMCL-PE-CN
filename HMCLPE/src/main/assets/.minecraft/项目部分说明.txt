@@ -1,7 +1,7 @@
 内存分配修改：com.tungsten.hmclpe.utils.platform的MemoryUtils文件
     findBestRAMAllocation方法的if条件语句
 
-Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件[弃用，已经不在通过网络下载Java17]
+Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
     JAVA_17_DOWNLOAD_URL静态成员变量内
 
 启动器获取更新链接：com.tungsten.hmclpe.update的UpdateChecker文件
@@ -30,6 +30,14 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件[
         添加"Java虚拟机设置"内的Java虚拟机参数：editJVMArgs.setText[括号内值要为字符串]
         添加"服务器地址"：editServer.setText[括号内值要为字符串]
 
+修改启动器设置页面内"反馈"页面内容：com.tungsten.hmclpe.launcher.uis.universal.setting.right.help的FeedbackUI文件
+    onClick方法内的if条件语句
+
+修改启动器设置页面内"关于"页面内容：com.tungsten.hmclpe.launcher.uis.universal.setting.right.help的AboutUsUI文件
+    onClick方法内的if条件语句
+
+在线下载的Java17文件存放路径[非释放文件]：com.tungsten.hmclpe.launcher.setting的InitializeSetting的checkJava17方法的DownloadTaskListBean对象【删除】
+
 修改启动器设置内"启动器"页面模块部分内容：com.tungsten.hmclpe.launcher.setting的InitializeSetting文件
     initializeLauncherSetting方法内的new SourceSetting关键字内
         autoSelect参数：自动下载源
@@ -39,6 +47,10 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件[
         maxDownloadTask参数：下载并发数 —— "设置"页面的"下载"页面的"并发数"的滑动滚动条
         fullscreen参数：全屏显示(忽略刘海屏) —— "设置"页面的"外观"页面的忽略刘海屏选项
         autoCheckUpdate参数：自动更新检查 —— "设置"页面的"通用"页面的启动器更新组件
+
+安装包内置的".minecraft"目录释放到手机哪个目录：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
+
+修改网络公告URL链接：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
 
 修改压缩文件时使用的密码[修改此选项后解压密码也要改]：com.tungsten.hmclpe.launcher.list.local.controller的ControlPatternListAdapter文件
     getView方法内的ZipManager.zip关键字内的password参数[默认压缩密码：HMCL-PE-Password
@@ -53,3 +65,5 @@ Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件[
 
 自定义按键：APK安装包的"assets/control/Default"目录下存放按键文件
     注意：请在启动器内修改完之后导出按键文件并解压后按APK安装包目录格式替换文件!!!
+
+修改游戏资源默认存放到私有目录还是公有目录：[注：新版本开始,该选项改到"/assets/config.properties"文件中修改]
