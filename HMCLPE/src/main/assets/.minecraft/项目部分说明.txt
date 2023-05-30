@@ -1,8 +1,7 @@
 内存分配修改：com.tungsten.hmclpe.utils.platform的MemoryUtils文件
     findBestRAMAllocation方法的if条件语句
 
-Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件
-    JAVA_17_DOWNLOAD_URL静态成员变量内
+Java17下载连接：com.tungsten.hmclpe.launcher.manifest.info的AppInfo文件[弃用，已经不在通过网络下载Java17]
 
 启动器获取更新链接：com.tungsten.hmclpe.update的UpdateChecker文件
     UPDATE_URL静态成员变量内
