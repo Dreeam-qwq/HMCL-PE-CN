@@ -37,8 +37,12 @@ public class AppManifest {
         CONTROLLER_DIR = INNER_FILE_DIR + "/control";
         PLUGIN_DIR = INNER_FILE_DIR + "/plugin";
         STYLE_DIR = INNER_FILE_DIR + "/style";
+        //通过getExternalFilesDir方法获取目录路径若不存在会自动创建一个这个目录
         DEBUG_DIR = context.getExternalFilesDir("debug").getAbsolutePath();
-        INNER_GAME_DIR = context.getExternalFilesDir(".minecraft").getAbsolutePath();
+        INNER_GAME_DIR = context.getExternalFilesDir(null).getAbsolutePath() + "/.minecraft";
+        if("true".equals(HMCLPEApplication.properties.getProperty("enable-private-directory-mode"))){
+            DEFAULT_GAME_DIR = INNER_GAME_DIR;
+        }
         DEFAULT_CACHE_DIR = context.getCacheDir().getAbsolutePath();
         INSTALL_DIR = DEFAULT_CACHE_DIR + "/install";
         SAVES_CACHE_DIR = DEFAULT_CACHE_DIR + "/saves";
@@ -62,7 +66,7 @@ public class AppManifest {
         FileUtils.createDirectory(PLUGIN_DIR);
         FileUtils.createDirectory(STYLE_DIR);
         FileUtils.createDirectory(DEBUG_DIR);
-        FileUtils.createDirectory(INNER_GAME_DIR);
+        //FileUtils.createDirectory(INNER_GAME_DIR);
         FileUtils.createDirectory(DEFAULT_CACHE_DIR);
         FileUtils.createDirectory(INSTALL_DIR);
         FileUtils.createDirectory(SAVES_CACHE_DIR);

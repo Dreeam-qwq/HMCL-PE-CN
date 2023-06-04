@@ -96,8 +96,10 @@ public class InstallLauncherFile {
         SharedPreferences.Editor edit = HMCLPEApplication.appOtherConfig.edit();
         if(!("完成".equals(HMCLPEApplication.appOtherConfig.getString("installAdditionalFiles","未找到字段")))){
             edit.putString("installAdditionalFiles","正在执行中");
-            //删除原公有目录游戏资源
-            deleteMinecraftFiles(activity, progressCallback);
+            //删除原公有目录游戏资源,如果开启了私有目录直装模式则不删除
+            if(!("true".equals(HMCLPEApplication.properties.getProperty("enable-private-directory-mode")))){
+                deleteMinecraftFiles(activity, progressCallback);
+            }
             //从apk安装包的assets目录内取出游戏资源并释放
             installAdditionalFiles(activity, progressCallback);
             edit.putString("installAdditionalFiles","完成");
