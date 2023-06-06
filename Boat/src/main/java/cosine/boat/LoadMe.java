@@ -154,7 +154,7 @@ public class LoadMe {
             for (int i = 0; i < args.size(); i++) {
                 if (!args.get(i).equals(" ")) {
                     finalArgs[i] = args.get(i);
-                    System.out.println("Minecraft Args:" + finalArgs[i]);
+                    Log.d("Boat后端启动参数", finalArgs[i]);
                     sb.append(finalArgs[i] + "\n");
                 }
             }

@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.graphics.*;
 import android.net.Uri;
 import android.os.*;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
@@ -97,6 +98,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                 String email = editEmail.getText().toString();
                 String password = editPassword.getText().toString();
                 boolean isNide = authlibInjectorServer.getUrl().startsWith(AddNide8AuthServerDialog.NIDE_8_AUTH_SERVER);
+                Log.d("登录事件——皮肤站地址", authlibInjectorServer.getUrl());
                 new Thread(() -> {
                     loginHandler.post(() -> {
                         progressBar.setVisibility(View.VISIBLE);
@@ -106,6 +108,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                     YggdrasilService yggdrasilService = authlibInjectorServer.getYggdrasilService();
                     try {
                         YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password,UUID.randomUUID().toString());
+                        Log.d("登录事件——账户下用户数量", String.valueOf(yggdrasilSession.getAvailableProfiles().size()));
                         if (yggdrasilSession.getAvailableProfiles().size() > 1) {
                             ArrayList<Bitmap> bitmaps = new ArrayList<>();
                             for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
@@ -139,6 +142,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                             loginHandler.post(() -> {
                                 SelectProfileDialog dialog = new SelectProfileDialog(getContext(),yggdrasilService,yggdrasilSession,email,password,authlibInjectorServer.getUrl(),bitmaps,onAuthlibInjectorAccountAddListener,isNide);
                                 dialog.show();
+
                                 dismiss();
                             });
                         }else if (yggdrasilSession.getAvailableProfiles().size() == 1){
