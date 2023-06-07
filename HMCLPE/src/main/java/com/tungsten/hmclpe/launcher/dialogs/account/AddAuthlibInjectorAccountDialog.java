@@ -20,6 +20,8 @@ import com.tungsten.hmclpe.launcher.list.account.server.AuthlibInjectorServerSpi
 import com.tungsten.hmclpe.manifest.AppManifest;
 import com.tungsten.hmclpe.skin.utils.Avatar;
 import com.tungsten.hmclpe.utils.gson.GsonUtils;
+import com.tungsten.hmclpe.utils.gson.UUIDTypeAdapter;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -107,7 +109,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                     });
                     YggdrasilService yggdrasilService = authlibInjectorServer.getYggdrasilService();
                     try {
-                        YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password,UUID.randomUUID().toString());
+                        YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
                         Log.d("登录事件——账户下用户数量", String.valueOf(yggdrasilSession.getAvailableProfiles().size()));
                         if (yggdrasilSession.getAvailableProfiles().size() > 1) {
                             ArrayList<Bitmap> bitmaps = new ArrayList<>();

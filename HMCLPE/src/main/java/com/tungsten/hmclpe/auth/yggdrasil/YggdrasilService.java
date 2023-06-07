@@ -29,6 +29,10 @@ import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.unmodifiableList;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class YggdrasilService {
 
@@ -46,18 +50,20 @@ public class YggdrasilService {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
         Objects.requireNonNull(clientToken);
-
-        Map<String, Object> request = new HashMap<>();
-        request.put("agent", mapOf(
-                pair("name", "Minecraft"),
-                pair("version", 1)
-        ));
-        request.put("username", username);
-        request.put("password", password);
-        request.put("clientToken", clientToken);
-        request.put("requestUser", true);
-
-        return handleAuthenticationResponse(request(provider.getAuthenticationURL(), request), clientToken);
+        JSONObject jsonAgent = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonAgent.put("name","Minecraft");
+            jsonAgent.put("version",1);
+            jsonObject.put("username",username);
+            jsonObject.put("password",password);
+            jsonObject.put("clientToken",clientToken);
+            jsonObject.put("requestUser",true);
+            jsonObject.put("agent",jsonAgent);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return handleAuthenticationResponse(NetworkUtils.doPost(provider.getAuthenticationURL().toString(), jsonObject,"application/json;charset=utf-8"), clientToken);
     }
 
     private static Map<String, Object> createRequestWithCredentials(String accessToken, String clientToken) {
@@ -70,25 +76,20 @@ public class YggdrasilService {
     public YggdrasilSession refresh(String accessToken, String clientToken, GameProfile characterToSelect) throws AuthenticationException {
         Objects.requireNonNull(accessToken);
         Objects.requireNonNull(clientToken);
-
-        Map<String, Object> request = createRequestWithCredentials(accessToken, clientToken);
-        request.put("requestUser", true);
-
-        if (characterToSelect != null) {
-            request.put("selectedProfile", mapOf(
-                    pair("id", characterToSelect.getId()),
-                    pair("name", characterToSelect.getName())));
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("accessToken",accessToken);
+            jsonObject.put("clientToken",clientToken);
+            jsonObject.put("requestUser",true);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
-
-        YggdrasilSession response = handleAuthenticationResponse(request(provider.getRefreshmentURL(), request), clientToken);
-
+        YggdrasilSession response = handleAuthenticationResponse(NetworkUtils.doPost(provider.getRefreshmentURL().toString(),jsonObject,"application/json;charset=utf-8"), clientToken);
         if (characterToSelect != null) {
-            if (response.getSelectedProfile() == null ||
-                    !response.getSelectedProfile().getId().equals(characterToSelect.getId())) {
+            if (response.getSelectedProfile() == null || !response.getSelectedProfile().getId().equals(characterToSelect.getId())) {
                 throw new ServerResponseMalformedException("Failed to select character");
             }
         }
-
         return response;
     }
 
@@ -174,7 +175,10 @@ public class YggdrasilService {
     private static YggdrasilSession handleAuthenticationResponse(String responseText, String clientToken) throws AuthenticationException {
         AuthenticationResponse response = fromJson(responseText, AuthenticationResponse.class);
         handleErrorMessage(response);
-
+        List<GameProfile> availableProfiles = response.availableProfiles;
+        for (GameProfile i : availableProfiles) {
+            Log.d("UUID查看事件", String.valueOf(i.getId()));
+        }
         //if (!clientToken.equals(response.clientToken))
             //throw new AuthenticationException("Client token changed from " + clientToken + " to " + response.clientToken);
 
@@ -199,6 +203,7 @@ public class YggdrasilService {
         }
     }
 
+    @Deprecated
     private static String request(URL url, Object payload) throws AuthenticationException {
         try {
             if (payload == null)

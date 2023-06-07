@@ -27,6 +27,7 @@ import com.tungsten.hmclpe.auth.yggdrasil.TextureType;
 import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilService;
 import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilSession;
 import com.tungsten.hmclpe.skin.utils.Avatar;
+import com.tungsten.hmclpe.utils.gson.UUIDTypeAdapter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -83,7 +84,7 @@ public class ReLoginDialog extends Dialog implements View.OnClickListener {
                     negative.setEnabled(false);
                 });
                 try {
-                    YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUID.randomUUID().toString());
+                    YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
                     if (yggdrasilSession.getAvailableProfiles().size() > 1) {
                         for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
                             if (gameProfile.getName().equals(account.auth_player_name)) {
