@@ -112,6 +112,7 @@ public class AddAuthlibInjectorAccountDialog extends Dialog implements View.OnCl
                         YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
                         Log.d("登录事件——账户下用户数量", String.valueOf(yggdrasilSession.getAvailableProfiles().size()));
                         if (yggdrasilSession.getAvailableProfiles().size() > 1) {
+                            //yggdrasilSession = yggdrasilService.refresh(yggdrasilSession.getAccessToken(), yggdrasilSession.getClientToken(), null);
                             ArrayList<Bitmap> bitmaps = new ArrayList<>();
                             for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
                                 if (yggdrasilService.getCompleteGameProfile(gameProfile.getId()).isPresent() && YggdrasilService.getTextures(yggdrasilService.getCompleteGameProfile(gameProfile.getId()).get()).isPresent()) {
