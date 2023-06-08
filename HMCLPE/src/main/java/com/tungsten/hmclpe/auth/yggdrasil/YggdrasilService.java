@@ -200,9 +200,6 @@ public class YggdrasilService {
         AuthenticationResponse response = fromJson(responseText, AuthenticationResponse.class);
         handleErrorMessage(response);
         List<GameProfile> availableProfiles = response.availableProfiles;
-        for (GameProfile i : availableProfiles) {
-            Log.d("UUID查看事件", String.valueOf(i.getId()));
-        }
         //if (!clientToken.equals(response.clientToken))
             //throw new AuthenticationException("Client token changed from " + clientToken + " to " + response.clientToken);
 
