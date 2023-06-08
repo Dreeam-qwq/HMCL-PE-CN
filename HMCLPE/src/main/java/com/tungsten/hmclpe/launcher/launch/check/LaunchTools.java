@@ -59,7 +59,7 @@ public class LaunchTools {
                         activity.uiManager.accountUI.accountListAdapter.notifyDataSetChanged();
                         GsonUtils.saveAccounts(activity.uiManager.accountUI.accounts,AppManifest.ACCOUNT_DIR + "/accounts.json");
                     }
-                    activity.uiManager.mainUI.refreshAccount();
+                    //activity.uiManager.mainUI.refreshAccount();
                     LaunchCheckDialog dialog = new LaunchCheckDialog(context,activity,launchVersion,bundle);
                     dialog.show();
                 }

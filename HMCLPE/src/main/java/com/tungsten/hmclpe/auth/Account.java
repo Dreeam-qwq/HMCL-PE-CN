@@ -24,7 +24,7 @@ public class Account {
         this.user_type = user_type;
         this.auth_session = auth_session;
         this.auth_player_name = auth_player_name;
-        this.auth_uuid = auth_uuid;
+        this.auth_uuid = auth_uuid.replace("-","");
         this.auth_access_token = auth_access_token;
         this.auth_client_token = auth_client_token;
         this.refresh_token = refresh_token;

@@ -13,7 +13,17 @@ import java.util.Map.Entry;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import android.util.Log;
+
 import com.tungsten.hmclpe.utils.Pair;
+
+import org.json.JSONObject;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  *
@@ -172,20 +182,7 @@ public final class NetworkUtils {
         return IOUtils.readFullyAsString(con.getInputStream(), StandardCharsets.UTF_8);
     }
 
-    public static String doPost(URL u, Map<String, String> params) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        if (params != null) {
-            for (Map.Entry<String, String> e : params.entrySet())
-                sb.append(e.getKey()).append("=").append(e.getValue()).append("&");
-            sb.deleteCharAt(sb.length() - 1);
-        }
-        return doPost(u, sb.toString());
-    }
-
-    public static String doPost(URL u, String post) throws IOException {
-        return doPost(u, post, "application/x-www-form-urlencoded");
-    }
-
+    @Deprecated
     public static String doPost(URL url, String post, String contentType) throws IOException {
         byte[] bytes = post.getBytes(UTF_8);
 
@@ -197,7 +194,38 @@ public final class NetworkUtils {
         try (OutputStream os = con.getOutputStream()) {
             os.write(bytes);
         }
-        return readData(con);
+        String s = readData(con);
+        Log.d("Post事件", s);
+        return s;
+    }
+
+    private static String bodyInfo;
+    public static String doPost(String finalURL, JSONObject jsonObject, String contentType){
+        //由于安卓4.0以后不允许主线程操作网络所以必须在子线程操作
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                OkHttpClient okHttpClient = new OkHttpClient();
+                MediaType parse = MediaType.parse(contentType);
+                RequestBody requestBody = RequestBody.create(parse, String.valueOf(jsonObject));
+                Request request = new Request.Builder().url(finalURL).post(requestBody).build();
+                try {
+                    Response execute = okHttpClient.newCall(request).execute();
+                    Log.d("请求码事件", String.valueOf(execute.code()));
+                    bodyInfo = execute.body().string();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return bodyInfo;
     }
 
     public static String readData(HttpURLConnection con) throws IOException {

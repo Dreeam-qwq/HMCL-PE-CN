@@ -221,7 +221,7 @@ public class AddAccountDialog extends Dialog implements View.OnClickListener, Ta
                         });
                         YggdrasilService yggdrasilService = authlibInjectorServer.getYggdrasilService();
                         try {
-                            YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUID.randomUUID().toString());
+                            YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
                             if (yggdrasilSession.getAvailableProfiles().size() > 1) {
                                 ArrayList<Bitmap> bitmaps = new ArrayList<>();
                                 for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
