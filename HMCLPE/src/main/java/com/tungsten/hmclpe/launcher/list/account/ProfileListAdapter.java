@@ -12,10 +12,15 @@ import android.widget.TextView;
 
 import com.tungsten.hmclpe.R;
 import com.tungsten.hmclpe.auth.Account;
+import com.tungsten.hmclpe.auth.AuthenticationException;
+import com.tungsten.hmclpe.auth.authlibinjector.AuthlibInjectorProvider;
 import com.tungsten.hmclpe.auth.yggdrasil.GameProfile;
+import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilService;
+import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilSession;
 import com.tungsten.hmclpe.launcher.dialogs.account.AddAuthlibInjectorAccountDialog;
 import com.tungsten.hmclpe.launcher.dialogs.account.SelectProfileDialog;
 import com.tungsten.hmclpe.skin.utils.Avatar;
+import com.tungsten.hmclpe.utils.gson.UUIDTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,15 +86,21 @@ public class ProfileListAdapter extends BaseAdapter {
         Avatar.setAvatar(Avatar.bitmapToString(skin),viewHolder.face,viewHolder.hat);
         viewHolder.item.setOnClickListener(view1 -> {
             String skinTexture = Avatar.bitmapToString(skin);
+            YggdrasilSession refresh;
+            try {
+                refresh = new YggdrasilService(new AuthlibInjectorProvider(dialog.url)).refresh(dialog.yggdrasilSession.getAccessToken(),dialog.yggdrasilSession.getClientToken(),new GameProfile(gameProfile.getId(),gameProfile.getName()));
+            } catch (AuthenticationException e) {
+                throw new RuntimeException(e);
+            }
             Account account = new Account(isNide ? 5 : 4,
                     dialog.email,
                     dialog.password,
                     "mojang",
                     "0",
-                    gameProfile.getName(),
-                    gameProfile.getId().toString(),
-                    dialog.yggdrasilSession.getAccessToken(),
-                    dialog.yggdrasilSession.getClientToken(),
+                    refresh.getSelectedProfile().getName(),
+                    UUIDTypeAdapter.fromUUID(refresh.getSelectedProfile().getId()),
+                    refresh.getAccessToken(),
+                    refresh.getClientToken(),
                     "",
                     dialog.url,
                     skinTexture);
