@@ -73,7 +73,7 @@ public class YggdrasilService {
         return request;
     }
 
-    public YggdrasilSession refresh(String accessToken, String clientToken, GameProfile characterToSelect) throws AuthenticationException {
+    public YggdrasilSession refresh(String accessToken, String clientToken) throws AuthenticationException {
         Objects.requireNonNull(accessToken);
         Objects.requireNonNull(clientToken);
         JSONObject jsonObject = new JSONObject();
@@ -81,6 +81,30 @@ public class YggdrasilService {
             jsonObject.put("accessToken",accessToken);
             jsonObject.put("clientToken",clientToken);
             jsonObject.put("requestUser",true);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        YggdrasilSession response = handleAuthenticationResponse(NetworkUtils.doPost(provider.getRefreshmentURL().toString(),jsonObject,"application/json;charset=utf-8"), clientToken);
+        if (response.getSelectedProfile() == null) {
+            throw new ServerResponseMalformedException("Failed to select character");
+        }
+        return response;
+    }
+
+    public YggdrasilSession refresh(String accessToken, String clientToken, GameProfile characterToSelect) throws AuthenticationException {
+        Objects.requireNonNull(accessToken);
+        Objects.requireNonNull(clientToken);
+        JSONObject jsonSelectedProfile = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("accessToken",accessToken);
+            jsonObject.put("clientToken",clientToken);
+            jsonObject.put("requestUser",true);
+            if(characterToSelect != null){
+                jsonSelectedProfile.put("id",UUIDTypeAdapter.fromUUID(characterToSelect.getId()));
+                jsonSelectedProfile.put("name",characterToSelect.getName());
+                jsonObject.put("selectedProfile",jsonSelectedProfile);
+            }
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -176,9 +200,6 @@ public class YggdrasilService {
         AuthenticationResponse response = fromJson(responseText, AuthenticationResponse.class);
         handleErrorMessage(response);
         List<GameProfile> availableProfiles = response.availableProfiles;
-        for (GameProfile i : availableProfiles) {
-            Log.d("UUID查看事件", String.valueOf(i.getId()));
-        }
         //if (!clientToken.equals(response.clientToken))
             //throw new AuthenticationException("Client token changed from " + clientToken + " to " + response.clientToken);
 

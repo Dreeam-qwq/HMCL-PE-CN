@@ -20,6 +20,7 @@ import com.tungsten.hmclpe.launcher.MainActivity;
 import com.tungsten.hmclpe.manifest.AppManifest;
 import com.tungsten.hmclpe.skin.utils.Avatar;
 import com.tungsten.hmclpe.utils.gson.GsonUtils;
+import com.tungsten.hmclpe.utils.gson.UUIDTypeAdapter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -118,7 +119,13 @@ public class CheckAccountTask extends AsyncTask<Account,Integer,Exception> {
                 try {
                     //boolean isNide = account.loginType == 5;
                     YggdrasilService yggdrasilService = Objects.requireNonNull(getServerFromUrl(account.loginServer)).getYggdrasilService();
-                    YggdrasilSession yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token,null);
+                    YggdrasilSession yggdrasilSession;
+                    //统一登录方式不需要传selectedProfile对象值
+                    if(account.loginType == 5){
+                        yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token);
+                    }else{
+                        yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token,new GameProfile(UUIDTypeAdapter.fromString(account.auth_uuid),account.auth_player_name));
+                    }
                     if (yggdrasilSession.getAvailableProfiles() != null && yggdrasilSession.getAvailableProfiles().size() > 1) {
                         for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
                             if (gameProfile.getName().equals(account.auth_player_name)) {
