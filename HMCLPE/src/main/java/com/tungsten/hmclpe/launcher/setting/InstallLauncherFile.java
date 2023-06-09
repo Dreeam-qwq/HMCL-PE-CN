@@ -98,7 +98,7 @@ public class InstallLauncherFile {
             edit.putString("installAdditionalFiles","正在执行中");
             //删除原公有目录游戏资源,如果开启了私有目录直装模式则不删除
             if(!("true".equals(HMCLPEApplication.properties.getProperty("enable-private-directory-mode")))){
-                //deleteMinecraftFiles(activity, progressCallback);
+                deleteMinecraftFiles(activity, progressCallback);
             }
             //从apk安装包的assets目录内取出游戏资源并释放
             installAdditionalFiles(activity, progressCallback);
