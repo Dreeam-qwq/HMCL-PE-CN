@@ -3,38 +3,24 @@ package com.tungsten.hmclpe.launcher.dialogs.account;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.*;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
-
+import androidx.appcompat.app.AlertDialog;
 import com.tungsten.hmclpe.R;
-import com.tungsten.hmclpe.auth.Account;
-import com.tungsten.hmclpe.auth.AuthInfo;
-import com.tungsten.hmclpe.auth.AuthenticationException;
-import com.tungsten.hmclpe.auth.yggdrasil.GameProfile;
-import com.tungsten.hmclpe.auth.yggdrasil.Texture;
-import com.tungsten.hmclpe.auth.yggdrasil.TextureType;
-import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilService;
-import com.tungsten.hmclpe.auth.yggdrasil.YggdrasilSession;
+import com.tungsten.hmclpe.auth.*;
+import com.tungsten.hmclpe.auth.yggdrasil.*;
 import com.tungsten.hmclpe.skin.utils.Avatar;
 import com.tungsten.hmclpe.utils.gson.UUIDTypeAdapter;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ReLoginDialog extends Dialog implements View.OnClickListener {
 
@@ -76,72 +62,31 @@ public class ReLoginDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == positive) {
+            progressBar.setVisibility(View.VISIBLE);
+            positive.setVisibility(View.GONE);
+            negative.setEnabled(false);
             String password = editPassword.getText().toString();
-            new Thread(() -> {
-                loginHandler.post(() -> {
-                    progressBar.setVisibility(View.VISIBLE);
-                    positive.setVisibility(View.GONE);
-                    negative.setEnabled(false);
-                });
+            AtomicBoolean haveManyAccount = new AtomicBoolean(false);
+            Thread thread = new Thread(() -> {
                 try {
-                    YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email,password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
-                    if (yggdrasilSession.getAvailableProfiles().size() > 1) {
-                        for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
-                            if (gameProfile.getName().equals(account.auth_player_name)) {
-                                Bitmap skin;
-                                Map<TextureType, Texture> map = YggdrasilService.getTextures(yggdrasilService.getCompleteGameProfile(gameProfile.getId()).get()).get();
-                                Texture texture = map.get(TextureType.SKIN);
-                                if (texture == null) {
-                                    AssetManager manager = getContext().getAssets();
-                                    InputStream inputStream;
-                                    inputStream = manager.open("img/alex.png");
-                                    skin = BitmapFactory.decodeStream(inputStream);
-                                }
-                                else {
-                                    String u = texture.getUrl();
-                                    URL url = new URL(u);
-                                    HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                                    httpURLConnection.setDoInput(true);
-                                    httpURLConnection.connect();
-                                    InputStream inputStream = httpURLConnection.getInputStream();
-                                    skin = BitmapFactory.decodeStream(inputStream);
-                                }
-                                loginHandler.post(() -> {
-                                    String skinTexture = Avatar.bitmapToString(skin);
-                                    Account newAccount = new Account(account.loginType,
-                                            email,
-                                            password,
-                                            account.user_type,
-                                            account.auth_session,
-                                            gameProfile.getName(),
-                                            gameProfile.getId().toString(),
-                                            yggdrasilSession.getAccessToken(),
-                                            yggdrasilSession.getClientToken(),
-                                            account.refresh_token,
-                                            account.loginServer,
-                                            skinTexture);
-                                    callback.onRelogin(newAccount);
-                                    dismiss();
-                                });
-                                break;
-                            }
-                        }
-                    }
-                    else {
+                    YggdrasilSession yggdrasilSession = yggdrasilService.authenticate(email, password, UUIDTypeAdapter.fromUUID(UUID.randomUUID()));
+                    if(yggdrasilSession.getAvailableProfiles().size() > 1){
+                        haveManyAccount.set(true);
+                    }else{
+                        haveManyAccount.set(false);
                         AuthInfo authInfo = yggdrasilSession.toAuthInfo();
                         Map<TextureType, Texture> map = YggdrasilService.getTextures(yggdrasilService.getCompleteGameProfile(authInfo.getUUID()).get()).get();
                         Texture texture = map.get(TextureType.SKIN);
                         Bitmap skin;
-                        if (texture == null) {
+                        if (texture == null){
                             AssetManager manager = getContext().getAssets();
                             InputStream inputStream;
                             inputStream = manager.open("img/alex.png");
                             skin = BitmapFactory.decodeStream(inputStream);
-                        }
-                        else {
+                        }else{
                             String u = texture.getUrl();
                             URL url = new URL(u);
-                            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                             httpURLConnection.setDoInput(true);
                             httpURLConnection.connect();
                             InputStream inputStream = httpURLConnection.getInputStream();
@@ -173,8 +118,24 @@ public class ReLoginDialog extends Dialog implements View.OnClickListener {
                     progressBar.setVisibility(View.GONE);
                     positive.setVisibility(View.VISIBLE);
                     negative.setEnabled(true);
+                    if(haveManyAccount.get()){
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                        alertDialog.setCancelable(false);
+                        alertDialog.setTitle("错误");
+                        alertDialog.setMessage("检测到当前账户登录已失效，请去启动器账户页面删除对应账户后重新添加！");
+                        alertDialog.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                callback.onCancel();
+                                dismiss();
+                            }
+                        });
+                        alertDialog.show();
+                    }
                 });
-            }).start();
+            });
+            thread.start();
         }
         if (view == negative) {
             callback.onCancel();
@@ -188,7 +149,7 @@ public class ReLoginDialog extends Dialog implements View.OnClickListener {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
-                Toast.makeText(getContext(), getContext().getString(R.string.dialog_add_authlib_injector_account_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getContext().getString(R.string.dialog_add_authlib_injector_account_failed), Toast.LENGTH_LONG).show();
             }
         }
     };
