@@ -6,6 +6,7 @@
 - 支持释放到公有目录或私有目录
 - 支持使用文本编写外置皮肤站地址 [assets/authlib_injector_server.json]
 - 可启动1.19.3+ [Boat、PojavLauncher后端均可]
+- 支持启动1.20以上版本的Forge端
 - 修复1.13.X-1.15.X版本中游戏内材质大面积透视BUG [仅PojavLauncher后端修复]
 - 支持自定义布局文件 [assets/control/Default]
 - 提供源码让用户自行改动项目，有文本说明提示部分类文件作用
@@ -20,4 +21,3 @@
 - 需要更新PojavLauncher后端才能使用Angle渲染器
 - 需要修复按键的"视角跟随"功能引发的乱飞BUG
 - 需要增加Java11、Java21运行环境
-- 目前无法启动1.20Forge端，原因：Java17运行环境太老导致无法使用

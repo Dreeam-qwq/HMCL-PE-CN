@@ -341,12 +341,12 @@ sun/nio/fs/Util
 sun/nio/fs/UnixNativeDispatcher
 jdk/internal/loader/BootLoader
 jdk/internal/loader/NativeLibraries
+jdk/internal/loader/ClassLoaderHelper
 java/util/HashSet
 java/util/Queue
 java/util/Deque
 java/util/ArrayDeque
 jdk/internal/loader/NativeLibraries$LibraryPaths
-jdk/internal/loader/ClassLoaderHelper
 jdk/internal/loader/NativeLibraries$1
 java/io/File$PathStatus
 java/util/ArrayDeque$DeqIterator
@@ -839,6 +839,9 @@ java/lang/NamedPackage
 java/lang/Package
 java/lang/Package$VersionInfo
 sun/nio/ByteBuffered
+java/util/zip/Checksum
+java/util/zip/CRC32
+java/util/zip/Checksum$1
 java/security/SecureClassLoader$CodeSourceKey
 java/security/SecureClassLoader$1
 java/security/PermissionCollection
@@ -882,6 +885,11 @@ java/security/Security$1
 java/util/Properties$LineReader
 java/util/concurrent/ConcurrentHashMap$ForwardingNode
 java/io/FileInputStream$1
+java/util/concurrent/ConcurrentHashMap$EntrySetView
+java/util/concurrent/ConcurrentHashMap$EntryIterator
+java/util/concurrent/ConcurrentHashMap$MapEntry
+jdk/internal/access/JavaSecurityPropertiesAccess
+java/security/Security$2
 java/io/FilePermission
 java/lang/System$LoggerFinder
 jdk/internal/logger/DefaultLoggerFinder
@@ -905,11 +913,8 @@ java/util/concurrent/ConcurrentHashMap$KeySetView
 java/util/Collections$3
 java/util/concurrent/ConcurrentHashMap$KeyIterator
 java/util/Properties$EntrySet
-java/util/concurrent/ConcurrentHashMap$EntrySetView
 java/util/Collections$SynchronizedCollection
 java/util/Collections$SynchronizedSet
-java/util/concurrent/ConcurrentHashMap$EntryIterator
-java/util/concurrent/ConcurrentHashMap$MapEntry
 java/util/Hashtable$Enumerator
 @lambda-proxy java/util/logging/Level apply ()Ljava/util/function/Function; (Ljava/lang/Object;)Ljava/lang/Object; REF_invokeVirtual java/util/logging/Level$KnownLevel mirrored ()Ljava/util/Optional; (Ljava/util/logging/Level$KnownLevel;)Ljava/util/Optional;
 java/util/ArrayList$ArrayListSpliterator
@@ -1208,6 +1213,7 @@ java/time/LocalDateTime
 java/time/chrono/ChronoLocalDate
 java/time/LocalDate
 java/time/LocalTime
+java/time/InstantSource
 java/time/Clock
 java/time/Clock$SystemClock
 java/time/Instant
@@ -1274,6 +1280,7 @@ sun/util/locale/provider/CalendarProviderImpl
 java/util/Calendar$Builder
 java/util/GregorianCalendar
 sun/util/calendar/CalendarSystem
+sun/util/calendar/CalendarSystem$GregorianHolder
 sun/util/calendar/AbstractCalendar
 sun/util/calendar/BaseCalendar
 sun/util/calendar/Gregorian
