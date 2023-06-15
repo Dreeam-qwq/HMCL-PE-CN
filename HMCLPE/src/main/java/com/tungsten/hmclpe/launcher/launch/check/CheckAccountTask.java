@@ -120,8 +120,8 @@ public class CheckAccountTask extends AsyncTask<Account,Integer,Exception> {
                     //boolean isNide = account.loginType == 5;
                     YggdrasilService yggdrasilService = Objects.requireNonNull(getServerFromUrl(account.loginServer)).getYggdrasilService();
                     YggdrasilSession yggdrasilSession;
-                    //统一登录方式不需要传selectedProfile对象值
-                    if(account.loginType == 5){
+                    //统一登录方式不需要传selectedProfile对象值,如果皮肤站“Post /authserver/validate”成立也不需要传selectedProfile对象值
+                    if(account.loginType == 5 || yggdrasilService.validate(account.auth_access_token, account.auth_client_token)){
                         yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token);
                     }else{
                         yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token,new GameProfile(UUIDTypeAdapter.fromString(account.auth_uuid),account.auth_player_name));

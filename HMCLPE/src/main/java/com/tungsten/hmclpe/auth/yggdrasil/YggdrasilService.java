@@ -101,6 +101,10 @@ public class YggdrasilService {
             jsonObject.put("clientToken",clientToken);
             jsonObject.put("requestUser",true);
             if(characterToSelect != null){
+                //Log.d("事件 —— 文件内的", accessToken);
+                //Log.d("事件 —— 文件内的", clientToken);
+                //Log.d("事件 —— 文件内的", UUIDTypeAdapter.fromUUID(characterToSelect.getId()));
+                //Log.d("事件 —— 文件内的", characterToSelect.getName());
                 jsonSelectedProfile.put("id",UUIDTypeAdapter.fromUUID(characterToSelect.getId()));
                 jsonSelectedProfile.put("name",characterToSelect.getName());
                 jsonObject.put("selectedProfile",jsonSelectedProfile);

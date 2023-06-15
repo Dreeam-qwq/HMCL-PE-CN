@@ -195,12 +195,12 @@ public final class NetworkUtils {
             os.write(bytes);
         }
         String s = readData(con);
-        Log.d("Post事件", s);
+        //Log.d("Post事件", s);
         return s;
     }
 
     private static String bodyInfo;
-    public static String doPost(String finalURL, JSONObject jsonObject, String contentType){
+    public static String doPost(String postURL, JSONObject jsonObject, String contentType){
         //由于安卓4.0以后不允许主线程操作网络所以必须在子线程操作
         Thread thread = new Thread() {
             @Override
@@ -209,10 +209,10 @@ public final class NetworkUtils {
                 OkHttpClient okHttpClient = new OkHttpClient();
                 MediaType parse = MediaType.parse(contentType);
                 RequestBody requestBody = RequestBody.create(parse, String.valueOf(jsonObject));
-                Request request = new Request.Builder().url(finalURL).post(requestBody).build();
+                Request request = new Request.Builder().url(postURL).post(requestBody).build();
                 try {
                     Response execute = okHttpClient.newCall(request).execute();
-                    Log.d("请求码事件", String.valueOf(execute.code()));
+                    //Log.d("请求码事件", String.valueOf(execute.code()));
                     bodyInfo = execute.body().string();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -225,6 +225,7 @@ public final class NetworkUtils {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        //Log.d("事件 —— 请求后信息", bodyInfo);
         return bodyInfo;
     }
 

@@ -1,10 +1,18 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'https://www.jitpack.io' }
+        google {
+            url "https://maven.aliyun.com/repository/google"
+        }
+        mavenCentral {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        jcenter {
+            url "https://maven.aliyun.com/repository/public"
+        }
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
 rootProject.name = "Hello Minecraft Launcher Pocket Edition"

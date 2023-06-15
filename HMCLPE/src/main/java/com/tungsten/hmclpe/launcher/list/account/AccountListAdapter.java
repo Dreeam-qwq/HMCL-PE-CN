@@ -297,7 +297,12 @@ public class AccountListAdapter extends BaseAdapter {
                     try {
                         //boolean isNide = account.loginType == 5;
                         YggdrasilService yggdrasilService = Objects.requireNonNull(getServerFromUrl(account.loginServer)).getYggdrasilService();
-                        YggdrasilSession yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token,new GameProfile(UUIDTypeAdapter.fromString(account.auth_uuid),account.auth_player_name));
+                        YggdrasilSession yggdrasilSession;
+                        if(account.loginType == 5 || yggdrasilService.validate(account.auth_access_token, account.auth_client_token)){
+                            yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token);
+                        }else{
+                            yggdrasilSession = yggdrasilService.refresh(account.auth_access_token, account.auth_client_token,new GameProfile(UUIDTypeAdapter.fromString(account.auth_uuid),account.auth_player_name));
+                        }
                         if (yggdrasilSession.getAvailableProfiles() != null && yggdrasilSession.getAvailableProfiles().size() > 1) {
                             for (GameProfile gameProfile : yggdrasilSession.getAvailableProfiles()) {
                                 if (gameProfile.getName().equals(account.auth_player_name)) {
